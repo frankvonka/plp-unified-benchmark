@@ -1,0 +1,14 @@
+{
+ "cell": "power_null_N200_T50_rho0.2_xsd0",
+ "N": 200,
+ "T": 50,
+ "rho": 0.2,
+ "sig_lam": 0.0,
+ "sig_gam": 0.0,
+ "het_rho": false,
+ "het_beta": false,
+ "beta_true": 0.0,
+ "beta_mean": 0.0,
+ "niter": 150,
+ "secs": 304.1
+}

@@ -1,0 +1,4027 @@
+ 
+Panel Local 
+Projections without 
+Fixed-Effects:  
+A Cumulative-
+Difference OLS 
+Estimator 
+WP 26/09 
+ 
+Alfonso Ugarte-Ruiz 
+Madrid, June 29, 2026 
+ 
+
+Panel Local Projections without Fixed-Effects: A
+Cumulative-Difference OLS Estimator*
+Alfonso Ugarte-Ruiz
+BBVA Research
+June 29, 2026
+Abstract
+Panel local projections have become a standard tool for estimating impulse response
+functions in empirical macroeconomics, yet their theoretical properties remain only par-
+tially understood. Recent work has shown that conventional fixed-effects estimators
+suffer from incidental-parameter (Nickell-type) bias, motivating analytical and jackknife
+bias corrections. This paper proposes a cumulative-difference OLS estimator for panel
+local projections that eliminates individual effects without relying on the within trans-
+formation. We show that cumulative differencing asymptotically removes the individual
+effects, derive the appropriate lag-augmented local projection specification, and prove
+that the resulting pooled OLS estimator is unbiased under standard exogeneity and sta-
+tionarity assumptions. Monte Carlo simulations covering alternative persistence struc-
+tures, sample dimensions, and dynamic specifications demonstrate that the proposed
+estimator consistently exhibits the smallest finite-sample bias and coverage probabili-
+ties close to their nominal levels, while the performance of fixed-effects, random-effects,
+and split-panel jackknife estimators depends critically on the persistence of both shocks
+and outcomes. Empirical applications further illustrate that estimator choice can ma-
+terially affect estimated impulse responses. The results suggest that many biases re-
+cently documented in panel local projections arise from the interaction between within
+transformations and dynamic persistence rather than from local projections themselves,
+providing a simple and robust alternative for empirical researchers.
+Keywords: Local projection, panel data, cumulative-differences, Nickell bias,
+impulse-response, split-panel jackknife, lag-augmentation
+JEL Classification: C1, C13, C180, C5, C510, C8, C870, C33, C53, E44, F37, F47
+*We thank Oscar Jorda, Jamel Saadaoui, participants at the RCEA Conference 2026 and BBVA Research
+internal seminars for their helpful comments.
+Contact information: alfonso.ugarte@bbva.com
+1
+
+1
+Introduction
+Estimating dynamic causal effects in panel data settings is central to empirical macroe-
+conomics and applied econometrics. Over the past two decades, local projections (LPs),
+introduced by Jordà (2005), have become a standard framework for estimating impulse
+response functions (IRFs).
+Panel LP applications are now widespread in peer-reviewed
+research and policy institutions analysis; however, despite their extensive empirical use,
+theoretical understanding of LP estimators in panel environments remains comparatively
+underdeveloped.
+Recent contributions by Mei, Sheng and Shi (2026) and Herbst and Johannsen (2024)
+document that conventional fixed-effects (FE) or least-squared dummy-variables (LSDV)
+estimators used in panel LP regressions suffer from a Nickell (1981)-type bias, even when
+lagged dependent variables are absent. Mei, Sheng and Shi (2026) demonstrates that FE
+estimator for the panel LP model is asymptotically biased leading to systematic attenuation
+of estimated impulse responses, and they propose a split-panel jackknife (SPJ) correction
+that effectively mitigates bias under the data-generating process they consider. Herbst and
+Johannsen (2024) derive an analytical bias correction based on their estimated theoretical
+bias.
+However, none of them consider whether the incidental-parameter problem and the the
+need for bias correction can be avoided altogether by reformulating the estimation problem.
+This paper proposes that differencing the dependent variable and estimating LP in what is
+usually called cumulative o long-differences removes the need to use a fixed-effect (FE)
+estimator and the within transformation that is at the center of the Nickell-bias problem.
+Although differencing has long been used to eliminate individual effects in dynamic
+panel models, beginning with Anderson and Hsiao (1981), in conventional dynamic panel
+models, first differencing removes the individual effects but creates an endogeneity prob-
+lem because the autoregressive coefficient governing the dynamics must still be estimated,
+requiring instrumental-variable methods.
+Local projections, however, estimate the object of interest, the impulse response, directly
+at each horizon, so recovering the autoregressive coefficient is not necessary for estimating
+the dynamic response of the shock. In local projections, the whole impulse response func-
+2
+
+tion is embedded in the regression coefficient of the shock at each horizon, which can be
+consistently estimated through pooled OLS after eliminating the individual effects.
+To our knowledge, this paper is the first to formalize this insight in the context of panel
+local projections. It formally establishes that differencing eliminates the individual effects
+in a local projection setting, derives the corresponding cumulative-difference pooled OLS
+estimator with an appropriate lag specification, and proves that the resulting estimator is
+unbiased under standard exogeneity and stationarity assumptions. The inclusion of the first
+lag of the shock is essential to avoid an omitted variable problem when the shock exhibits
+persistence.
+Through extensive Monte-Carlo simulations we examine the behavior of panel LP esti-
+mators under three dynamic environments: (i) persistent shocks with non-persistent out-
+comes, (ii) persistent outcomes with serially uncorrelated shocks, and (iii) joint persistence
+in both shocks and outcomes. Within each setting, we evaluate the finite-sample proper-
+ties of the conventional FE estimator, the split-panel jackknife correction (SPJ), the Random
+Effects estimator (RE) and several versions of an estimator that uses cumulative-difference
+transformations of the dependent variable, all under different sample sizes and autocorre-
+lation parameters, including high-persistence levels.
+The paper makes several contributions to the emerging theoretical literature on panel
+local projections. First, it develops a broader characterization of panel impulse responses by
+explicitly showing that their dynamic behavior depends jointly on the persistence of both
+the outcome variable and the shock process. Second, it proves that cumulative-difference
+local projections estimated by pooled OLS are unbiased under the maintained assump-
+tions, thereby providing an alternative to fixed-effects estimation that avoids the incidental-
+parameter problem rather than correcting it ex post.
+Third, the Monte Carlo experiments confirm the unbiasedness of our proposed estimator
+and also reveal several important findings: the finite-sample performance of fixed-effects,
+random-effects and split-panel jackknife estimators depends critically on the persistence
+structure of the data and that split-panel jackknife corrections need not be uniformly robust.
+The simulations show that pooled OLS is the estimation method that exhibits the smallest
+bias at all horizons of the IRF, is the most robust under different DGPs and the most robust
+to specifications changes regarding the lags of the dependent and shock variables.
+3
+
+Through our simulations, we also find that even the RE estimator could be vulnerable
+to the Nickell bias, even in cases in which the data generating process include individual
+effects that are uncorrelated to the shock, confirming the insight that the source of the
+problem is the within transformation. This is so because RE also uses a pseudo within
+transformation that in some cases could be almost exactly to the within transformation of
+the FE estimator. Our simulations also contribute to remind that there are many cases where
+the Nickell-bias is close to irrelevant. For instance, if only the outcome variable exhibits a
+moderate persistence and the sample has a number of time periods T large relative to the
+number of cross-sectional units N, then the bias of the FE estimator is almost negligible.
+Finally, we revisit several influential empirical panel local projection applications and
+compare the resulting impulse responses across fixed-effects, split-panel jackknife, and
+cumulative-difference OLS estimators. These empirical replications illustrate that estima-
+tor choice can materially affect estimated impulse responses and suggest that the larger
+responses often obtained with split-panel jackknife corrections are consistent with the over-
+correction patterns documented in our Monte Carlo experiments under joint persistence.
+These findings contribute to a more complete theoretical understanding of incidental
+parameter bias in panel local projections.
+For instance, it clarifies that the Nickell bias
+documented in recent work is a property of estimating panel local projections with within
+transformations, not a property of local projections themselves. They also provide practical
+guidance for empirical researchers estimating impulse responses in macroeconomic panels,
+where persistence is pervasive and time dimensions are moderate.
+The rest of this paper is organized as follows: Section 2 briefly reviews the literature re-
+lated to local projections in time series, the literature on dynamic panel bias and the Nickell
+bias and the short intersection between them. Section 3 presents the theoretical framework,
+it shows mathematically that time differencing actually eliminates the individual effects and
+presents a propose an estimator that does not require the within-transformation. Section
+4 describes the simulation design and the estimations performed under different param-
+eterizations of the DGP, different specifications, sample sizes and estimators.
+Section 5
+presents and discuss the simulation results. Section 6 studies some empirical applications
+and Section 7 concludes and discuss other possible complications that we can encounter in
+empirical applications and other possible extensions and future research.
+4
+
+2
+Literature Review
+2.1
+Local Projections in Time Series
+Local projections (LPs), introduced by Jordà (2005), have become one of the standard ap-
+proaches for estimating impulse response functions. Unlike vector autoregressions (VARs),
+LPs estimate horizon-specific regressions directly, allowing for flexible specifications and
+greater robustness to dynamic misspecification.
+A substantial theoretical literature has analyzed the statistical properties of LP estima-
+tors in time-series environments.
+Under correct specification, LP and VAR impulse re-
+sponses are asymptotically equivalent, although finite-sample properties may differ sub-
+stantially. Recent work has emphasized the robustness advantages of LPs under misspecifi-
+cation, as well as the role of lag augmentation, smoothing, and alternative transformations
+in improving inference and finite-sample performance. Jordà and Taylor (2025) provide a
+comprehensive survey of this literature.
+Particularly relevant for this paper is the literature that studies cumulative or long-
+difference transformations in dynamic environments. Such transformations can improve
+finite-sample performance in persistent settings by reducing dynamic misspecification and
+mitigating persistence-related distortions. However, existing results are primarily devel-
+oped in pure time-series contexts and do not directly address panel data environments
+with individual effects.
+2.2
+Dynamic Panel Bias
+Separately, a large econometric literature studies incidental parameter bias in dynamic
+panel models. Since the seminal contribution of Nickell (1981), it has been well understood
+that fixed-effects estimators in panels with finite time dimension T exhibit biases of order
+O(1/T) whenever regressors are correlated with transformed disturbances. Numerous bias-
+correction procedures have subsequently been proposed, including analytical corrections
+and jackknife estimators such as the split-panel jackknife (SPJ).
+This literature, however, focuses primarily on autoregressive panel models rather than
+horizon-by-horizon local projection regressions. As a result, its implications for panel LP
+5
+
+estimation remain only partially understood.
+2.3
+Panel Local Projections
+Despite the widespread use of local projections in macroeconomic panels, the theoretical
+literature on panel LP estimators remains comparatively limited. The leading contribution
+in this area is Mei, Sheng and Shi (2026), who show that fixed-effects estimators in panel
+LP regressions suffer from a Nickell-type bias even in the absence of lagged dependent
+variables. Their analysis demonstrates that persistence in the shock variable induces corre-
+lation between regressors and transformed errors, generating attenuation bias in estimated
+impulse responses and invalidating standard inference based on conventional t-statistics.
+In another recent paper, Herbst and Johannsen (2024) document that LP point estimates
+can be severely biased because LP are often used with very small samples in the time
+dimension. They extend the analysis to settings using panel data and show that, when
+using fixed effects, the bias persists. They derive formulas to approximate the bias, which
+could be used to bias-correct LP estimators. Their bias estimation is actually very close to
+the Nickell-bias since they include individual effects in their specification and they estimate
+a bias of order 1/T.
+The main difference between Herbst and Johannsen (2024) and Mei, Sheng and Shi
+(2026) is that the first one analyzes the properties of the least-square dummy-variable
+(LSDV) estimator and they focus on the bias when the dependent variable exhibits auto-
+correlation, whereas the latter analyzes the fixed-effect estimator that relies on the within-
+transformation, while focusing on the case when the regressor exhibits autocorrelation.
+Mei, Sheng and Shi (2026) show that split-panel jackknife corrections can substantially
+reduce the bias under the persistence structure considered in their framework and they
+point out that their solution is free of analytical bias calculation.
+Crucially, neither Herbst and Johannsen (2024) nor Mei, Sheng and Shi (2026) consider or
+evaluate the case in which differencing the dependent variable and estimating LP in what
+is usually called cumulative-differences can be done without the within transformation
+necessary to estimate the fixed-effect (FE) estimator, something that is at the root of the
+Nickell-bias problem.
+6
+
+Mei, Sheng and Shi (2026) do evaluate analytically and through simulations a spec-
+ification with the dependent variable in long-differences.
+However, they assume in the
+data generating process that the individual effects remained included in such specifica-
+tion. Moreover, they proceed to estimate it using FE, which causes that they find that such
+estimator still suffers from the Nickel bias.
+Moreover, many empirical macroeconomic applications involve high persistence of both
+the shock variable and the dependent variable. Output, inflation, credit aggregates, and fi-
+nancial variables typically exhibit substantial intrinsic high serial correlation. In such envi-
+ronments, the statistical properties of panel LP estimators remain a challenge. In particular,
+it is unclear whether the SPJ bias correction performs adequately under highly persistent
+dynamics.
+For instance, Mei, Sheng and Shi (2026) documented a significant deviation in the cov-
+erage probability of the confidence interval of the SPJ estimator when the persistence of the
+shock was above 90%, while acknowledging the limitation of its proposed correction be-
+cause "the theoretical foundations of SPJ do not cover highly persistent regressors". More-
+over, they only analyzed the case of highly persistent shocks, but extending the framework
+to settings where both shocks and outcomes are highly persistent could still be more chal-
+lenging.
+Through extensive Monte Carlo simulations, we demonstrate that cumulative-difference
+local projections estimated using pooled OLS and including one lag of the shock variable
+consistently outperform conventional fixed-effects estimators and split-panel jackknife cor-
+rections across a wide range of persistence structures, sample sizes, and specifications, even
+under highly persistent dynamic environments.
+Our results clarify that many of the distortions emphasized in recent panel LP research
+are not intrinsic to local projections themselves, but instead arise from the use of within
+transformations in persistent dynamic environments.
+3
+Theory and Data Generating Process
+To understand the theoretical framework of the simulation, we present a prototype
+model where the dependent variable yi,t is generated from the following data generating
+7
+
+process (DGP):
+yi,t = ρyyi,t−1 + βsi,t + ui + ei,t
+(1)
+si,t = ρssi,t−1 + vi,t
+i = 1, ..., N;
+t = 1, ..., T,
+(2)
+where |ρy| < 1 and |ρs| < 1 to ensure stationarity.
+Assumption 1: si,t is orthogonal to ei,t and vi,t
+• E[si,t|ei,t] = 0
+• E[si,t|vi,t] = 0
+• E[si,t|ei,s] = 0, ∀s̸ = t
+• E[si,t|vi,s] = 0, ∀s̸ = t
+Assumption 2: si,t is a stationary variable with autocorrelation of order 1:
+• E[si,t|si,t−1, ..., si,t−k] = ρssi,t−1, ∀k ≥2
+We do not consider the case of time effects, although they could be added relatively
+easy.
+Following Jordà and Taylor (2025), we are interested in characterizing how an interven-
+tion today affects the average outcome at some time in the future relative to a baseline of
+no-intervention. Let yt denote an outcome variable of interest, st the policy intervention
+variable, and let xt denote a vector of controls variables. Formally, we define an impulse
+response as:
+Rs→h = E[yt+h|st = s0 + δ; xt] −E[yt+h|st = s0; xt];
+h = 0, 1, ..., H,
+(3)
+where s0 denotes the value of the variable st without intervention and δ is the size of the
+intervention, which is commonly normalized so that δ = 1. This allows to omit δ from the
+notation and write Rs→h(h, 1) ≡Rs→h(h) ≡Rsh(h).
+We want to understand what the theoretical Impulse Response Function (IRF) is for
+different values and combinations of ρy and ρs. For simplicity, we first assume that ui, ei,t
+and vi,t are all equal to zero and rewrite (1) and (2) as an expression for yi,t and si,t, h periods
+ahead:
+8
+
+yi,t+h = ρyyi,t+h−1 + βsi,t+h
+(4)
+si,t+h = ρssi,t+h−1;
+h = 0, ..., H,
+(5)
+3.1
+Only the dependent variable is persistent
+Since we assume that ρy̸ = 0 but ρs = 0, then (5) becomes irrelevant.
+When h = 0 The response Rsh(h = 0) is simply equal to β. For h = 1 we substitute (4)
+with h = 0 into itself one period ahead i.e. (4) with h = 1 and we obtain that Rsh(h = 1) =
+ρyβ. For h ≥2 we repeat the substitution to obtain that Rsh(h) = ρh
+yβ, which can also be
+denoted as βh = ρh
+yβ.
+3.2
+Only the shock variable is persistent
+Since we assume that ρy = 0 and ρs̸ = 0, then (4) becomes simply:
+yi,t+h = βsi,t+h
+(6)
+For h = 0, the response Rsh(h = 0) is again β. For h = 1 we substitute (6) with h = 0 into
+(4) with h = 1 and we obtain that Rsh(h = 1) = ρsβ. For h ≥2 we repeat the substitution
+to obtain that Rsh(h) = ρh
+s β, which again, can also be denoted as βh = ρh
+yβ.
+3.3
+Both the dependent variable and the shock are persistent
+We assume that both ρy̸ = 0 and ρs̸ = 0. For h = 0, the response Rsh(h = 0) is again β.
+For h = 1 we substitute (5) and (4) with h = 0 into (4) with h = 1:
+yi,t+1 = ρyyi,t + βsi,t+1
+... = ρy(ρyyi,t−1 + βsi,t) + β(ρssi,t)
+... = ρ2
+yyi,t−1 + βsi,t(ρy + ρs)
+(7)
+9
+
+For h = 2:
+yi,t+2 = ρyyi,t+1 + βsi,t+2
+... = ρy(ρ2
+yyi,t−1 + β(ρy + ρs)si,t) + β(ρ2
+ssi,t)
+... = ρ3
+yyi,t−1 + βsst(ρ2
+y + ρyρs + ρ2
+s)
+(8)
+We can continue the iteration and we can see that for h = 3 we obtain
+yi,t+3 = ρ4
+yyi,t−1 + βsst(ρ3
+y + ρ2
+yρs + ρyρ2
+s + ρ3
+s)
+(9)
+And for h = 4;
+yi,t+4 = ρ5
+yyi,t−1 + βsst(ρ4
+y + ρ3
+yρs + ρ2
+yρ2
+s + ρyρ3
+s + ρ4
+s)
+(10)
+Thus, the impulse response function Rsh(h) or βh can be generalized to:
+Rsh(0) = β0 = β
+Rsh(1) = β1 = β(ρy + ρs)
+Rsh(h) = βh = β(ρh
+y + ρh
+s +
+h−1
+∑
+i=1
+ρh−i
+y
+ρi
+s);
+h = 2, ..., H
+(11)
+We can see the IRF for the three different cases in Figure 1 for β = 1
+The panel version of Jordà (2005)’s local projection (LP) has become widely used in
+empirical analyses for its simplicity, robustness, and flexible specifications.
+One of the
+theoretical advantages of a panel data setting in local projections is that, in addition to
+having potentially more observations with which to increase the precision of the estimates,
+it also opens a large set of methodological possibilities like different types of nonlinearities.
+A typical panel data local projection could be specified as:
+yi,t+h = µh + βhsi,t + γ′
+hxi,t + ui + ei,t+h;
+h = 0, ..., H
+(12)
+As long as E[si,t|ei,t+h] = 0, i.e. st is exogenous, and E[ui|si,t] = 0, i.e. individual effects
+are not correlated with the shock, then we might use a Random Effects (RE) local projection
+to estimate the IRFs and we would get that Rsh(h) = βh in all of the theoretical cases
+10
+
+Figure 1: Impulse response according to different autocorrelations of Y and S, with Beta=1
+0
+.2
+.4
+.6
+.8
+1
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Period
+rho_S = 0, rho_Y = 0.2
+0
+.2
+.4
+.6
+.8
+1
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Period
+rho_S = 0.2, rho_Y = 0
+0
+.2
+.4
+.6
+.8
+1
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Period
+rho_S = 0.2, rho_Y = 0.2
+0
+.2
+.4
+.6
+.8
+1
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Period
+rho_S = 0, rho_Y = 0.5
+0
+.2
+.4
+.6
+.8
+1
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Period
+rho_S = 0.5, rho_Y = 0
+0
+.2
+.4
+.6
+.8
+1
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Period
+rho_S = 0.5, rho_Y = 0.5
+.2
+.4
+.6
+.8
+1
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Period
+rho_S = 0, rho_Y = 0.8
+.2
+.4
+.6
+.8
+1
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Period
+rho_S = 0.8, rho_Y = 0
+1
+1.2
+1.4
+1.6
+1.8
+2
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Period
+rho_S = 0.8, rho_Y = 0.8
+11
+
+considered in this section.
+However, if E[ui|si,t]̸ = 0 we would have to use a Fixed-Effects (FE) estimator to get rid
+of the ui. In that case, Mei, Sheng and Shi (2026) have shown that the FE estimator has an
+intrinsic attenuation bias which could be corrected by using the Split-Panel Jackknife SPJ
+estimator.
+However, another possible solution to get rid of the individual effects could be to differ-
+entiate the dependent variable and estimate equation (12) using the RE estimator, or OLS
+which is not affected by the Nickell bias.
+We want to derive an expression for the cumulative differences LP estimator of st on yt
+in h = 0. For simplicity, we are going to ignore any control variable xt. Notice that yi,t and
+yi,t−1 are given by:
+yi,t = ρyyi,t−1 + βsi,t + ui + ei,t
+yi,t−1 = ρyyi,t−2 + βsi,t−1 + ui + ei,t−1
+(13)
+If we replace yi,t−1 into yi,t, and then yi,t−2 into the resulting equation, and keep on
+replacing recursively up until the initial period yi,t−T0 = βsi,t−T0 + ei,T0 + ui, then we can
+express yi,t as a weighted sum of all the current and previous values of si,t, ui and ei,t, or its
+MA representation:
+yi,t =
+T0
+∑
+k=1
+ρk
+y(βsi,t−k + ui + ei,t−k) + βsi,t + ui + ei,t
+(14)
+or as
+yi,t =
+T0
+∑
+k=1
+ρk
+y(βsi,t−k + ei,t−k) + βsi,t + ei,t +
+T0
+∑
+k=0
+ρk
+yui
+(15)
+If we repeat the same recursive process for yt−1, we would get a very similar expression:
+yi,t−1 =
+T0
+∑
+k=1
+ρk−1
+y
+(βsi,t−k + ei,t−k) +
+T0
+∑
+k=1
+ρk−1
+y
+ui
+(16)
+Which can be rearranged to get the following:
+yi,t−1 =
+T0
+∑
+k=1
+ρk−1
+y
+(βsi,t−k + ei,t−k) +
+T0−1
+∑
+k=0
+ρk
+yui
+(17)
+Therefore if we differentiate yt to get yi,t −yi,t−1, we can subtract equation (17) from
+12
+
+equation (15). Notice that the difference between the last two terms in each of those equa-
+tions ∑T0
+k=0 ρk
+yui −∑T0−1
+k=0 ρk
+yui is equal to ρT0
+y ui.
+Therefore yi,t −yi,t−1 would be equal to:
+yi,t −yi,t−1 =
+T0
+∑
+k=1
+(ρk
+y −ρk−1
+y
+)(βsi,t−k + ei,t−k) + βsi,t + ei,t + ρT0
+y ui
+(18)
+Since |ρy| < 1 then ρT0
+y ui →0 when T0 →∞, so it follows that differentiating yt ef-
+fectively eliminates asymptotically the individual effects ui. Eliminating individual effects
+by differencing was used by Anderson and Hsiao (1981) for designing their dynamic panel
+estimator.
+Rearranging equation (18), and using the fact that st is not correlated with st−k for k > 2,
+it follows that we can estimate Rsh(h = 0), or β0, through the local projection given by the
+following specification:
+yi,t −yi,t−1 = β0si,t + γ0si,t−1 + ϵi,t
+(19)
+Where β0 = β, γ0 = (ρy −1)β
+and ϵi,t = ∑T0
+k=2(ρk
+y −ρk−1
+y
+)βsi,t−k + ei,t + ∑T0
+k=1(ρk
+y −ρk−1
+y
+)ei,t−k.
+It is important to note that as long as ρs > 0, st is correlated with st−1 and therefore, we
+must include the latter in the specification otherwise we would run into an omitted variable
+bias problem.
+Since there are no individual effects in equation (19) we can efficiently estimate it
+through OLS or RE. In fact, estimating it by FE would bring back the Nickell Bias prob-
+lem.
+It is also important to notice that in this specification we cannot estimate ρy, but if we
+are only interested in the response of yt to a shock in st we do not need an estimate of ρy.
+In the Appendix we derive similar expressions for h = 1, ..3 showing that in those cases
+the individual effects are effectively wiped out when we apply long-differences. Using those
+results we can generalize equation (19) into the following local projection specification in
+cumulative differences:
+yi,t+h −yi,t−1 = βhsi,t + γhsi,t−1 + ϵi,t+h;
+h = 0, ..., H
+(20)
+13
+
+Where βh = β for h = 0;
+βh = β(ρy + ρs) for h = 1;
+βh = β(ρh
+y + ρh
+s + ∑h−1
+i=1 ρh−i
+y
+ρi
+s) for h = 2, ..., H,
+γh = (ρh
+y −1)β;
+and ϵi,t+h = ∑h
+k=0 ρk
+yei,t+h−k + β ∑h−1
+k=0 ρk
+yvi,t+h−k + ∑T0
+k=1(ρk+h
+y
+−ρk−1
+y
+)ei,t−k
++ ∑T0
+k=2(ρk+h
+y
+−ρk−1
+y
+)βsi,t−k.
+Proposition 1 Being c
+βh the pooled OLS estimator given by equation 20 we can show
+that it is unbiased as long as Assumption 1 and Assumption 2 hold, i.e.:
+E[c
+βh] = βh;
+h = 0, ..., H
+(21)
+Proof:
+In the case where ρs = 0, the proof is trivial since, following Assumption 1 and As-
+sumption 2, E[si,t|si,t−k] = 0 for ∀k ≥1, E[si,t|ei,t] = 0, E[si,t|vi,t] = 0, E[si,t|ei,t+k] = 0
+and E[si,t|vi,t+k] = 0 ∀k̸ = 0. Then it follows that E[si,t|ϵi,t+h] = 0, and therefore we can
+consistently estimate βh for each h = 0, ..., T
+The proof where ρs̸ = 0 requires the use of the Frisch–Waugh–Lovell (2008)1 partial-
+regression theorem and it is shown in subsection A.2 in the Appendix.
+Note that ϵi,t+h would display autocorrelation since it includes the lags of multiple vari-
+ables and therefore we should use a robust estimator of variance or the Driscoll-Kraay
+estimator of variance.
+We study all these possibilities in the simulations described in Section (4).
+4
+Simulations
+4.1
+Simulation Data
+We create panel datasets for use in Monte Carlo experiments as pseudo-random real-
+izations from dynamic linear panel data models. We rely on the Stata command xtarsim
+created by Bruno (2005) to generate datasets originated from the following data generating
+1Greene (2003)
+14
+
+process:
+yi,t = ρyyi,t−1 + βsi,t + ui + ut + ei,t
+(22)
+si,t = ρssi,t−1 + vi,t
+i = 1, ..., N;
+t = 1, ..., T0,
+(23)
+where
+ei,t are iid N(0, σ2) vi,t are iid N(0, σ2
+v), with σv determined by the signal to noise ratio
+which in our simulations is chosen to be equal to 20.
+ei,t and vi,t are not correlated, so that si,t is a strictly exogenous regressor in the first
+equation of the model.
+However, ui are the individual effects that may or may not be
+correlated with si,t. Initially, we assume that they are correlated and therefore, they are
+determined by ui = α(1 −ρy)(1 + ¯si −¯s), where ¯si and ¯s, respectively, are the group mean
+and the overall mean of si,t, and α is a load factor we have assumed equal to 10.
+If not correlated, individual effects are taken to be i.i.d. N(0, α2(1 −ρy)2).
+We simulate three different types of samples according to the autocorrelation of the
+dependent and shock variables, following the three cases considered in section 3.
+• A sample in which only the shock variable has autocorrelation, which is the case
+examined by Mei, Sheng and Shi (2026) in their main simulations.
+• A sample in which only the dependent variable has autocorrelation.
+• A sample in which both of them have autocorrelation.
+We also consider two different sample sizes:
+• Sample of size N = 100 and T = 50 since this could be considered a typical sample
+size when we work with macroeconomic data coming, for example, from the IMF
+World Economic Outlook (WE0).
+• Sample of size N = 30 and T = 60 since this is the sample size considered by Mei,
+Sheng and Shi (2026) that has the largest bias in their simulations.
+The parameters that we have used for the simulation are: β = 1, ρs = 0.8 and ρy = 0.8.
+We chose a higher autocorrelation since according to Mei, Sheng and Shi (2026) this is the
+case in which the size of the bias in local projections with Fixed-Effects is the largest.
+15
+
+We also considered two additional cases:
+• A sample with lower autocorrelation parameters: ρs = 0.5 and ρy = 0.5
+• A sample in which the individual effects are not correlated with si,t, in which case,
+Random Effects are unbiased and we do not need to use Fixed Effects.
+4.2
+Local Projection Monte Carlo Experiments
+For each generated sample we perform multiple estimations of local projections with
+different specifications and different estimators, and we average the IRFs and their confi-
+dence bands for the 100 replications. For estimating each local projection we use the Stata
+command locproj created by Ugarte-Ruiz (2023).
+We consider the following eight estimators:
+• Random Effects with robust standard errors (RE)
+• Fixed (Within) Effects with robust standard errors (FE)
+• Split-Panel Jackknife Estimator (SPJ)
+• Random Effects taking cumulative (long) differences of the dependent variable (robust
+standard errors) (CMRE)
+• Fixed Effects taking cumulative (long) differences of the dependent variable (robust
+standard errors) (CMFE)
+• Random Effects taking cumulative (long) differences of the dependent variable (robust
+standard errors) but including by default one lag of the shock (CMRE1)
+• Fixed Effects taking cumulative (long) differences of the dependent variable (robust
+standard errors) but including by default one lag of the shock (CMFE1)
+• OLS taking cumulative (long) differences of the dependent variable (robust standard
+errors) but including by default one lag of the shock (CMOLS)
+16
+
+When using estimators RE, FE and SPJ we start with the specification defined by (12)
+although in our case we do not include any control variables or time-fixed effects:
+yi,t+h = µh + βhsi,t + ui + ei,t+h;
+h = 0, ..., H
+(24)
+When using estimators CMRE and CMFE we start with the following specification:
+yi,t+h −yi,t−1 = βhsi,t + ei,t+h;
+h = 0, ..., H
+(25)
+Finally, when using estimators CMRE1, CMFE1 and CMOLS we start with the specifi-
+cation defined in (20).
+For each case, we also consider three modifications to the initial specification. In each
+case, we add lags of the dependent variable, the shock, or both variables. Therefore, the
+four specifications considered for each estimator are the following:
+• No added lags of either variable
+• One added lag of the dependent variable
+• One added lag of the shock variable
+• One added lag of each variable.
+Thus, in the cases where we add one lag of the shock, estimators CMRE1, CMFE1 and
+CMOLS would actually have two lags of st.
+Moreover, it is important to clarify that the lags of the dependent variable are included
+in a different way depending on the estimator. For the RE, FE and SPJ cases, the lags of the
+dependent variable are in levels, whereas in the case of the cumulative differences (CMRE,
+CMFE, CMRE1, CMFE1) the lags of the dependent variable are in first-differences.
+For estimating the local projections through the SPJ estimator, we combine the Stata
+command locproj selecting as estimation method the Stata command xtspj created by Sun
+and Dhaene (2019). A complete description of the way of including the lags of the shock
+and dependent variable can be found in Ugarte-Ruiz (Forthcoming).
+17
+
+5
+Simulation Results
+We present the results of the following simulation exercises:
+• Sample with N=100, T=50 and high autocorrelation coefficients (ps and/or py equal
+to 0.8
+• Sample with N=100, T=50 and very high autocorrelation coefficients (ps and/or py
+equal to 0.9
+• Sample with N=100, T=50 and high autocorrelation coefficients (ps and/or py equal
+to 0.8, but individual effects ui are not correlated with st
+In the Appendix, We present the results of two further exercises:
+• Sample with N=30, T=60 and high autocorrelation coefficients (ps and/or py equal to
+0.8
+• Sample with N=100, T=50 and low autocorrelation coefficients (ps and/or py equal to
+0.5
+The results for each sample are all presented a similar structure. The first three figures
+displays the simulated IRFs of the Fixed Effects (FE), Split-Panel-Jackknife (SPJ) and Ran-
+dom Effects (RE) estimators with robust standard errors, and the different versions of the
+estimators in cumulative differences (CMRE, CMFE, CMRE1, CMFE1 and CMOLS) for the
+four basic specifications in each one of the three DGP cases considered.
+The tables that follow the figures show the bias and the coverage probability of the
+confidence interval of the eight estimators, as an average of all the horizons and for the first
+and last estimated ones, i.e. h = 0 and h = 9.
+For the case where ρy and ρs are equal to 0.8 (or zero), we show the results by DGP and
+for each specification. For all the other cases, we summarize the results and only show, for
+each DGP, the average of the four specifications and the results for the best specification.
+All tables are ordered from the highest to the lowest average coverage probability. In
+some of them, we can also see which one out of the four specifications has the best average
+coverage probability.
+18
+
+In subsections A.4 and A.5 in the Appendix, we show the results of the simulations
+when there are more time periods than individuals, T > N, and when autocorrelation is
+much lower, ρs or ρy are either 0 or 0.5.
+5.1
+Sample with more individuals than time periods, i.e. N=100, T=50
+Figure 2 reports the average of the estimated IRFs over the 100 replications and compares
+them with the true IRFs for the first DGP case, i.e. when only st has autocorrelation. Figure
+3 reports the results for the cases where only the dependent variable has autocorrelation,
+something that was not considered by Mei, Sheng and Shi (2026) in their main simulations.
+Finally, 4 reports the results when both the outcome and the shock have correlation. Each
+row shows the results for each one of the different specifications.
+Then Tables 1 to 4 report the bias and coverage probability of the confidence interval for
+all combinations of the three DGP processes and the four specifications considered.
+We can see that the results of the top left panel clearly replicate the results obtained by
+Mei, Sheng and Shi (2026). FE estimator is downward biased (attenuation) while the SPJ
+seems to be unbiased at most horizon periods. However, we can see that the SPJ estimator
+displays a small bias in the longer periods.
+We can also see that as we add lags of the dependent variable or the shock (lag augmen-
+tation), the bias of the FE estimator diminishes, although does not disappear, it goes from
+around -17.8% to -11.7% when h = 9.
+One of the most important results that can be seen in Figure 2, is that the OLS and
+RE estimators in cumulative differences appear to be unbiased in all four specifications
+when specified as in equation (20), i.e. in the CMOLS and CMRE1 cases. A somewhat less
+surprising result is that the CMRE estimator appears clearly biased due to the omission of
+the first lag of st in the first two specifications, although it is noticeable that the size of the
+bias is pretty substantial.
+The FE estimator in cumulative differences (CMFE and CMFE1) always displays an
+attenuation bias compared to the RE alternative, which is also a consequence of the Nickell
+bias.
+The RE estimator is clearly biased in most cases, although the bias also seems to di-
+19
+
+minish once we add lags of the shock. In this case, we have to be cautious and highlight
+that this could be a result of the combination of parameters and not something that can
+be generalized without considering other parameter combination, such as the sign of the
+correlation between the individual effect and the shock.
+In Figure 3 and Tables 5 to 8 we can see that the bias of the FE is smaller than when only
+the shock is persistent. The bias now is around -10% at h = 9 compared to -18% when only
+the shock was persistent. However, in this case the bias does not seem to decrease when we
+add lags of the dependent variable and/or the shock, is always around -10% on average.
+In general, when only the dependent variable is persistent, it is clear that not only the
+bias of FE decreases, but it does for all the estimators considered, even the RE estimator
+also exhibits a much lower bias in most cases.
+Importantly, replicating the case when only the shock was persistent, the CMOLS and
+CMRE1 estimators appear to be unbiased in all specifications. Moreover, CMOLS displays
+the highest coverage probability and it is always around 95%.
+Also the CMRE estimator now look unbiased in all specifications while before it was
+severely bias when no lags of yi,t or si,t were included. Even the FE estimator in cumulative
+differences appears to be unbiased, although its bias increases when we add lags of the
+shock and at longer horizons.
+Although the SPJ estimator shows a relatively small bias, its coverage probability is
+clearly low and is only superior to the RE and all the estimators that use FE.
+Finally, another important contribution of this paper could be seen in Figures 4 and
+Tables 9 to 12. Now, it is noticeable that both the FE estimator and the SPJ estimator have
+an upward bias (an intensification bias), which is actually more intense in the SPJ than in
+the FE one. In Table 9 the bias of the SPJ is 178% when h = 0.
+The positive bias of both estimators seems to decrease once we add lags of the shock or
+the dependent variable in the specification, although in the FE case the bias turns negative
+and considerably large. In the SPJ case, the positive bias diminishes, but never disappears,
+when adding a lag of yi,t the SPJ estimator shows an average bias of 13%, and when adding
+a lag of both yi,t and si,t the average bias is around 5%.
+Considering that most variables studied in macroeconomic are usually highly persis-
+tent, this could suggest that the SPJ could be problematic in many applications if we do
+20
+
+not include lags of either si,t or yi,t, and it could still remain positively biased after lag-
+augmentation.
+We can see that the CMOLS and CMRE1 estimators remain fairly unbiased in all four
+specifications. However, it seems that at the longer horizons a negative bias starts to appear
+in the CMRE1 case. This could be due to the pseudo-differentiation in RE which could
+make it somewhat vulnerable to the Nickell bias.
+Importantly, this does not occur in the CMOLS case, which looks clearly unbiased in all
+specifications and horizons. Moreover, the coverage probability of the CMOLS estimator is
+clearly very close to 95% in all cases. Interestingly, the CMRE1 estimator although some-
+times shows a higher coverage probability than the CMOLS one, in general displays a much
+larger bias at horizon h = 9.
+21
+
+Figure 2: IRF, N = 100, T = 50 when ρs = 0.8 and ρy = 0
+22
+
+Figure 3: IRF, N = 100, T = 50 when ρs = 0 and ρy = 0.8
+23
+
+Figure 4: IRF, N = 100, T = 50 ρs = 0.8 and ρy = 0.8
+24
+
+Table 1: DGP: ρs = 0.8 and ρy = 0 and SPEC: Lags St:0, Lags yt:0
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+0.04
+-0.06
+0.23
+0.94
+0.92
+0.90
+CMRE1
+-0.51
+-0.15
+-3.62
+0.92
+0.98
+0.69
+SPJ
+-1.36
+-0.06
+-6.14
+0.58
+0.89
+0.27
+CMFE1
+-7.03
+-0.15
+-11.16
+0.27
+0.99
+0.00
+RE
+12.82
+158.08
+-15.67
+0.16
+0.00
+0.00
+FE
+-11.27
+-0.06
+-17.80
+0.10
+0.94
+0.00
+CMFE
+-87.13
+-76.13
+-93.22
+0.00
+0.00
+0.00
+CMRE
+-81.26
+-80.09
+-85.49
+0.00
+0.00
+0.00
+Table 2: DGP: ρs = 0.8 and ρy = 0 and SPEC: Lags St:+1, Lags yt:0
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.27
+0.00
+-0.63
+0.96
+0.96
+0.97
+CMRE1
+-0.90
+0.14
+-4.41
+0.90
+0.91
+0.64
+CMRE
+-0.84
+0.14
+-4.18
+0.90
+0.90
+0.66
+SPJ
+0.12
+0.03
+-2.06
+0.89
+0.95
+0.88
+RE
+-2.63
+5.92
+-10.30
+0.30
+0.00
+0.02
+CMFE
+-7.26
+0.14
+-11.63
+0.25
+0.92
+0.01
+CMFE1
+-7.61
+0.15
+-12.13
+0.23
+0.91
+0.01
+FE
+-7.36
+0.05
+-11.73
+0.22
+0.95
+0.01
+Table 3: DGP: ρs = 0.8 and ρy = 0 and SPEC: Lags St:0, Lags yt:+1
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.08
+-0.03
+-0.07
+0.96
+0.95
+0.98
+CMRE1
+-0.65
+0.07
+-4.09
+0.89
+0.90
+0.66
+SPJ
+0.53
+0.11
+-1.84
+0.82
+0.90
+0.78
+CMFE1
+-7.05
+0.30
+-11.45
+0.26
+0.92
+0.01
+FE
+-7.32
+0.26
+-11.82
+0.23
+0.87
+0.00
+CMFE
+-82.24
+-70.76
+-88.48
+0.00
+0.00
+0.00
+CMRE
+-76.30
+-75.89
+-79.17
+0.00
+0.00
+0.00
+RE
+-82.71
+-67.68
+-90.62
+0.00
+0.00
+0.00
+25
+
+Table 4: DGP: ρs = 0.8 and ρy = 0 and SPEC: Lags St:+1, Lags yt:+1
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.15
+0.01
+-0.30
+0.95
+0.94
+0.93
+CMRE
+-0.83
+0.02
+-3.78
+0.89
+0.95
+0.66
+CMRE1
+-0.93
+-0.03
+-4.12
+0.88
+0.95
+0.61
+SPJ
+0.38
+-0.03
+-1.42
+0.84
+0.91
+0.77
+RE
+-6.47
+0.34
+-10.24
+0.33
+0.89
+0.05
+CMFE
+-7.23
+0.25
+-11.31
+0.26
+0.95
+0.02
+CMFE1
+-7.55
+-0.03
+-11.70
+0.25
+0.95
+0.02
+FE
+-7.16
+-0.03
+-11.09
+0.25
+0.94
+0.01
+Table 5: DGP: ρs = 0 and ρy = 0.8 and SPEC: Lags St:0, Lags yt:0
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.08
+-0.05
+0.02
+0.97
+0.91
+1.00
+CMRE1
+-0.00
+0.10
+-0.59
+0.94
+0.94
+0.94
+CMRE
+0.18
+0.12
+0.18
+0.94
+0.90
+0.92
+CMFE1
+-0.69
+1.58
+-1.79
+0.92
+0.44
+0.95
+CMFE
+0.89
+1.98
+0.60
+0.92
+0.27
+0.97
+SPJ
+-0.80
+0.31
+-3.02
+0.75
+0.84
+0.70
+RE
+-2.66
+6.01
+-7.70
+0.55
+0.41
+0.17
+FE
+-8.53
+-5.96
+-10.16
+0.10
+0.16
+0.05
+Table 6: DGP: ρs = 0 and ρy = 0.8 and SPEC: Lags St:+1, Lags yt:0
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.07
+-0.04
+-0.12
+0.97
+0.97
+0.99
+CMRE
+0.07
+0.10
+-0.36
+0.93
+0.93
+0.90
+CMRE1
+-0.07
+0.10
+-1.06
+0.93
+0.96
+0.89
+CMFE
+-0.58
+1.60
+-1.54
+0.91
+0.39
+0.96
+CMFE1
+-1.84
+1.33
+-3.43
+0.85
+0.49
+0.84
+SPJ
+-1.45
+-1.21
+-2.99
+0.81
+0.81
+0.74
+RE
+-4.12
+0.46
+-7.84
+0.55
+0.91
+0.09
+FE
+-8.80
+-5.95
+-10.37
+0.06
+0.05
+0.03
+26
+
+Table 7: DGP: ρs = 0 and ρy = 0.8 and SPEC: Lags St:0, Lags yt:+1
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+0.06
+0.15
+-0.13
+0.97
+0.92
+0.97
+CMRE
+-0.06
+-0.02
+0.01
+0.95
+0.96
+0.95
+CMRE1
+-0.30
+-0.06
+-0.84
+0.95
+0.96
+0.95
+CMFE
+0.62
+1.82
+0.53
+0.92
+0.33
+0.98
+SPJ
+0.22
+-0.00
+-1.79
+0.86
+0.93
+0.82
+CMFE1
+-2.72
+1.04
+-4.43
+0.83
+0.62
+0.77
+RE
+3.02
+2.25
+-0.99
+0.51
+0.09
+0.95
+FE
+-7.47
+-0.16
+-11.62
+0.22
+0.91
+0.01
+Table 8: DGP: ρs = 0 and ρy = 0.8 and SPEC: Lags St:+1, Lags yt:+1
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.15
+0.04
+-0.40
+0.98
+0.97
+0.98
+CMRE
+-0.23
+-0.01
+-0.39
+0.95
+0.93
+0.95
+CMRE1
+-0.27
+-0.01
+-0.72
+0.95
+0.94
+0.95
+SPJ
+0.65
+0.14
+-0.89
+0.86
+0.91
+0.87
+CMFE
+-2.84
+1.11
+-4.30
+0.81
+0.63
+0.81
+CMFE1
+-3.21
+1.01
+-4.87
+0.78
+0.68
+0.74
+RE
+3.32
+2.13
+1.22
+0.56
+0.07
+0.92
+FE
+-7.20
+-0.01
+-10.99
+0.24
+0.95
+0.01
+Table 9: DGP: ρs = 0.8 and ρy = 0.8 and SPEC: Lags St:0, Lags yt:0
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMRE1
+0.74
+0.77
+-5.62
+0.95
+0.95
+0.90
+CMOLS
+0.52
+0.65
+-0.19
+0.94
+0.98
+0.97
+CMFE1
+-4.21
+4.70
+-20.45
+0.74
+0.54
+0.53
+RE
+63.51
+202.88
+-32.84
+0.24
+0.00
+0.19
+FE
+30.13
+142.73
+-49.46
+0.10
+0.00
+0.00
+SPJ
+76.03
+177.45
+9.69
+0.09
+0.00
+0.44
+CMFE
+-142.23
+-35.09
+-216.92
+0.00
+0.00
+0.00
+CMRE
+-146.76
+-45.02
+-211.49
+0.00
+0.00
+0.00
+27
+
+Table 10: DGP: ρs = 0.8 and ρy = 0.8 and SPEC: Lags St:+1, Lags yt:0
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMRE
+0.85
+0.64
+-4.50
+0.95
+0.93
+0.88
+CMRE1
+-0.34
+0.12
+-7.03
+0.94
+0.95
+0.85
+CMOLS
+0.23
+0.10
+0.34
+0.92
+0.94
+0.93
+SPJ
+1.19
+-5.57
+1.41
+0.84
+0.79
+0.84
+CMFE
+-3.95
+4.59
+-19.24
+0.77
+0.50
+0.60
+CMFE1
+-8.52
+3.34
+-26.05
+0.70
+0.67
+0.34
+RE
+-8.48
+11.74
+-32.04
+0.60
+0.61
+0.09
+FE
+-26.57
+-16.34
+-43.87
+0.03
+0.09
+0.01
+Table 11: DGP: ρs = 0.8 and ρy = 0.8 and SPEC: Lags St:0, Lags yt:+1
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMRE1
+0.79
+0.59
+-2.10
+0.96
+0.93
+0.94
+CMOLS
+-0.71
+0.08
+-0.83
+0.96
+0.96
+0.99
+CMFE1
+-7.82
+3.93
+-25.12
+0.71
+0.58
+0.34
+FE
+-11.51
+1.96
+-29.61
+0.48
+0.81
+0.07
+SPJ
+12.57
+1.05
+20.40
+0.42
+0.89
+0.30
+CMFE
+-147.07
+-35.35
+-225.38
+0.00
+0.00
+0.00
+CMRE
+-152.39
+-46.81
+-215.06
+0.00
+0.00
+0.00
+RE
+-48.12
+-10.63
+-70.90
+0.00
+0.00
+0.00
+Table 12: DGP: ρs = 0.8 and ρy = 0.8 and SPEC: Lags St:+1, Lags yt:+1
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.75
+-0.15
+-0.94
+0.95
+0.98
+0.96
+CMRE1
+-1.78
+-0.40
+-5.90
+0.95
+0.96
+0.88
+CMRE
+-1.74
+-0.43
+-4.75
+0.94
+0.95
+0.90
+SPJ
+5.38
+0.55
+3.63
+0.79
+0.98
+0.76
+CMFE
+-10.08
+3.02
+-27.36
+0.66
+0.73
+0.32
+CMFE1
+-11.75
+2.59
+-29.89
+0.62
+0.81
+0.20
+RE
+10.14
+6.97
+-0.92
+0.53
+0.13
+0.93
+FE
+-23.55
+-0.24
+-48.60
+0.27
+0.96
+0.00
+28
+
+5.2
+Very high autocorrelation
+Simulations with higher autocorrelation are important because they are closer to the
+empirical persistence observed in many macroeconomic variables and because we know
+that the persistence amplifies the Nickell bias and because, as recognized by Mei, Sheng
+and Shi (2026) "the theoretical foundations of SPJ do not cover highly persistent regressors"
+and therefor, the reliability of the SPJ estimator diminishes.
+Under this environment we can see that the bias of the FE deteriorates more sharply in
+the three DGPs considered. In some cases FE is clearly biased even at t = 0. In several cases
+the coverage probability is simply equal to zero, especially at the longest horizon.
+The second most important result is that SPJ over-correction becomes more severe in the
+case of joint-persistence. This could be due to the underlying FE bias becoming too large
+causing over-correction. This deterioration under very high persistence suggests that the
+SPJ correction is not uniformly robust to highly persistent environments and may amplify
+finite-sample distortions when both shocks and outcomes exhibit strong serial correlation.
+A third important result is that the bias in the estimator in cumulative differences when
+using RE becomes more relevant at higher horizons. For instance, we can see in Table 18
+the CMRE1 displays a 10% attenuation bias at horizon t = 9 or the CMRE with one lag of
+si,t, (equivalent to CMRE1), an attenuation bias of 14%. This confirms that the any estimator
+relying on the within transformation is vulnerable to the Nickell bias.
+Finally, CMOLS remains remarkable stable relative to competing estimators. Its bias
+is close to zero at all horizons as well as its coverage probability. Although stronger per-
+sistence worsens finite-sample performance across estimators, the deterioration of CMOLS
+is comparatively very limited. As a result, the relative advantage of cumulative-difference
+local projections estimated trhough pooled OLS becomes even more pronounced in highly
+persistent environments.
+29
+
+Figure 5: IRF, N = 100, T = 50 when ρs = 0.9 and ρy = 0
+30
+
+Figure 6: IRF, N = 100, T = 50 when ρs = 0 and ρy = 0.9
+31
+
+Figure 7: IRF, N = 100, T = 50 ρs = 0.9 and ρy = 0.9
+32
+
+Table 13: DGP: N = 100, T = 50 when ρs = 0.9 and ρy = 0
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.04
+0.04
+-0.41
+0.94
+0.95
+0.96
+CMRE1
+-1.26
+0.04
+-7.49
+0.87
+0.94
+0.43
+SPJ
+0.03
+-0.05
+-4.19
+0.73
+0.94
+0.64
+CMRE
+-46.79
+-44.45
+-54.01
+0.43
+0.47
+0.21
+CMFE1
+-10.82
+0.13
+-19.93
+0.22
+0.94
+0.00
+FE
+-12.36
+0.06
+-22.29
+0.17
+0.94
+0.00
+RE
+-21.95
+57.56
+-44.03
+0.17
+0.23
+0.00
+CMFE
+-55.56
+-41.81
+-66.28
+0.11
+0.48
+0.00
+Table 14: DGP: N = 100, T = 50 when ρs = 0 and ρy = 0.9
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+0.18
+0.04
+0.27
+0.97
+0.94
+0.98
+CMRE
+-0.01
+0.04
+-0.53
+0.94
+0.95
+0.95
+CMRE1
+-0.15
+0.04
+-1.20
+0.93
+0.93
+0.93
+CMFE
+-0.49
+1.58
+-1.75
+0.92
+0.59
+0.96
+CMFE1
+-1.50
+1.42
+-3.50
+0.90
+0.64
+0.93
+SPJ
+-1.50
+-2.05
+-3.74
+0.74
+0.79
+0.70
+RE
+-6.36
+-3.87
+-11.97
+0.43
+0.36
+0.23
+FE
+-13.61
+-6.55
+-19.29
+0.11
+0.47
+0.00
+Table 15: DGP: N = 100, T = 50 when ρs = 0.9 and ρy = 0.9
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMRE1
+-2.64
+-0.05
+-16.31
+0.92
+0.94
+0.88
+CMOLS
+0.67
+-0.05
+-0.22
+0.92
+0.94
+0.92
+CMFE1
+-7.76
+6.26
+-44.18
+0.77
+0.82
+0.54
+CMRE
+-99.48
+-24.52
+-166.89
+0.46
+0.47
+0.43
+SPJ
+61.91
+83.35
+37.77
+0.44
+0.52
+0.47
+RE
+25.68
+74.53
+-40.94
+0.42
+0.47
+0.52
+CMFE
+-89.15
+-11.51
+-176.78
+0.39
+0.40
+0.31
+FE
+-3.96
+55.10
+-78.42
+0.24
+0.39
+0.07
+33
+
+Table 16: DGP: N = 100, T = 50 when ρs = 0.9 and ρy = 0, Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator & Best Spec.
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS: sl0, yl0
+-0.05
+-0.00
+-0.22
+0.96
+0.98
+0.99
+CMRE1: sl0, yl0
+-1.03
+-0.00
+-7.06
+0.88
+0.97
+0.48
+CMRE: sl1, yl0
+-1.27
+0.00
+-7.35
+0.87
+0.97
+0.44
+SPJ: sl1, yl1
+0.81
+0.04
+-1.31
+0.83
+0.96
+0.83
+RE: sl1, yl1
+-2.50
+0.41
+-16.89
+0.30
+0.92
+0.00
+CMFE1: sl0, yl1
+-10.44
+-0.00
+-19.58
+0.24
+0.98
+0.00
+CMFE: sl1, yl1
+-10.59
+-0.05
+-19.29
+0.22
+0.97
+0.00
+FE: sl1, yl1
+-10.64
+-0.02
+-19.31
+0.20
+0.97
+0.00
+Table 17: DGP: N = 100, T = 50 when ρs = 0 and ρy = 0.9, Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator & Best Spec.
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS: sl0, yl0
+0.02
+0.03
+0.08
+0.97
+0.95
+1.00
+CMRE: sl0, yl0
+-0.00
+0.05
+-0.11
+0.96
+0.97
+0.99
+CMRE1: sl1, yl1
+-0.26
+0.03
+-0.41
+0.95
+0.95
+0.94
+CMFE: sl0, yl0
+-0.13
+1.45
+-0.80
+0.95
+0.66
+1.00
+CMFE1: sl0, yl0
+-0.93
+1.31
+-2.40
+0.93
+0.72
+0.97
+SPJ: sl1, yl1
+1.18
+0.27
+-1.43
+0.85
+0.94
+0.83
+RE: sl1, yl1
+-0.03
+1.35
+-7.27
+0.79
+0.68
+0.51
+FE: sl0, yl1
+-10.50
+-0.14
+-18.55
+0.23
+0.96
+0.00
+Table 18: DGP: N = 100, T = 50 when ρs = 0.9 and ρy = 0.9, Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator & Best Spec.
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMRE1: sl0, yl1
+1.75
+-0.40
+-9.97
+0.95
+0.96
+0.93
+CMOLS: sl0, yl1
+-0.24
+-0.40
+-1.15
+0.94
+0.97
+0.94
+CMRE: sl1, yl0
+-0.72
+-0.51
+-14.01
+0.92
+0.97
+0.90
+SPJ: sl1, yl1
+10.95
+2.45
+3.64
+0.81
+0.89
+0.90
+CMFE1: sl0, yl1
+0.80
+5.49
+-30.49
+0.80
+0.88
+0.67
+CMFE: sl1, yl0
+-1.28
+6.29
+-32.77
+0.79
+0.86
+0.72
+RE: sl0, yl1
+14.89
+0.94
+4.66
+0.72
+0.92
+0.95
+FE: sl0, yl1
+-15.27
+-0.85
+-37.62
+0.46
+0.91
+0.19
+34
+
+5.3
+Summary of results with high autocorrelation and N>T
+A summary of the performance by estimator for the cases of autocorrelations betwen
+0.8 and 0.9, would be the following:
+1. CMOLS: Best overall performance
+The most robust result across all DGPs and specifications is the outstanding perfor-
+mance of CMOLS. CMOLS has in general the smallest absolute average bias, close to
+zero bias at either short or long horizons, and a coverage probability close to 95%.
+Importantly, this superior performance remains stable across all persistence struc-
+tures and specifications. Even in the most difficult case, the joint persistence with
+(ρs=ρy=0.9), CMOLS maintains a close to zero bias and near-perfect coverage.
+This robustness is economically and econometrically important because it suggests
+that the cumulative-difference transformation combined with OLS and a simple lag
+addition largely neutralizes the distortions created by fixed-effects transformations in
+persistent environments.
+2. CMRE1: Very strong but slightly inferior at long horizons
+The second-best estimator overall is CMRE1. In many specifications it performs al-
+most as well as CMOLS, especially at short horizons. However, the results reveal a
+systematic deterioration at longer horizons. The coverage probability also declines
+noticeably at long horizons. This pattern becomes more pronounced under joint per-
+sistence, where the long-horizon bias becomes more relevant.
+The results strongly support the interpretation that the pseudo-differencing implicit in
+RE estimation leaves the estimator partially exposed to Nickell-type distortions, even
+after cumulative differencing. Thus, we can say that cumulative differencing alone
+is not sufficient, avoiding within/pseudo-within transformations also matters, which
+explains why CMOLS dominates CMRE1.
+3. SPJ: Effective only in the benchmark Mei–Sheng–Shi environment
+The SPJ estimator performs very well in the specific environment analyzed by Mei,
+35
+
+Sheng and Shi (2026), namely when only the shock variable is persistent and no addi-
+tional persistence comes from the dependent variable.
+In cases in which the persistence resides only in the shock, SPJ has essentially close
+zero average bias. However, once persistence in the dependent variable is introduced,
+the performance of SPJ deteriorates substantially in terms of bias and coverage prob-
+abilities.
+More importantly, the results when there is joint persistence demonstrate the SPJ
+over-corrects and displays an upward bias, which in some cases could be ameliorated
+through lag augmentation, but it never disappear completely. Therefore, the results
+demonstrate that SPJ corrections are not uniformly robust across persistence struc-
+tures and may over-correct in environments with joint persistence.
+4. FE Estimator: persistent and unstable bias
+The FE estimator consistently performs poorly across almost all environments and
+several patterns emerge: (i) downward bias when persistence resides only in one of
+the variables, i.e. FE exhibits the attenuation bias emphasized by Mei, Sheng and Shi
+(2026). When both yt and st are jointly persistent, the FE estimator becomes highly
+unstable. In some specifications, the bias becomes strongly positive, while in others it
+becomes severely negative.
+Coverage probabilities are generally extremely poor, often collapsing near zero at
+long horizons. These results suggest that FE panel LP estimators are highly sensitive
+to persistence structure, specification choice, and horizon length.
+5. RE Estimator: Highly unstable even when individual effects are exogenous
+The RE estimator performs poorly throughout the simulations, as expected when
+individual effects are correlated with the shock. The results show very large positive
+biases in some cases, large negative biases in others, and generally poor coverage
+probabilities.
+Importantly, this instability persists even in the simulations where individual effects
+are uncorrelated with the shock variable. This strongly supports that RE inherits part
+of the Nickell-type problem through its pseudo-differencing transformation.
+36
+
+6. CMRE and CMFE poor performers due to inadequate lag augmentation
+The worst-performing estimators overall are CMRE and CMFE when the first lag
+of the shock is omitted.
+These estimators display extremely large negative biases
+together with very poor coverage probabilities. The results confirm the theoretical
+derivation in Table 3: once shocks are persistent, omitting the lag of the shock creates
+a severe omitted-variable problem in the cumulative differencing case. This shows
+that the latter alone is not enough; correct dynamic specification is also essential.
+6
+Empirical Applications
+In this section we present a series of empirical exercises focusing on a comparison be-
+tween fixed-effects, split-jackknife and cumulative-difference estimators, either with FE or
+by pooled OLS. We replicate some exercises based on a policy paper (Furceri et al. (2018))
+and some of the examples used in Mei, Sheng and Shi (2026).
+For the calculations we rely on the Stata command locproj that allows one to implement
+all the estimators considered here and on the stata command xtlp developed by Mei, Sheng
+and Shi (2026) based on their proposed correction. Estimating the cumulative differences
+OLS with one lag of the shock would require the following line when using the Stata
+command locproj:
+locproj y s, m(reg) tr(cmlt) sl(1)
+6.1
+Impact of tariffs on real GDP and real Exports
+We replicate some of the results in Furceri et al. (2018) in which they study the impact
+of a change in tariffs on GDP and other macroeconomic variables using a panel of annual
+data that spans 151 countries over 1963-2014. One of their main results is that they find
+empirically that tariff increases lead to declines of output in the medium term.
+We additionally estimate the impulse response function of the same shock to local tariffs
+on real exports of the same local country, a variable that was not analyzed by Furceri et al.
+(2018), but that represents an interesting exercise given the clear exogeneity of local tariffs
+with respect to exports.
+37
+
+The original specification used in Furceri et al. (2018) is:
+yi,t+h −yi,t−1 = αh
+i + γh
+t + βh∆Ti,t + θhXi,t + ϵi,t;
+h = 0, ..., 5
+Where yi,t is the outcome variable of interest, either real GDP or real Exports, αi are
+country fixed effects to control for unobserved cross-country heterogeneity, γt are time
+fixed effects to control for global shocks, ∆Ti,t is the change in the tariff rate and Xi,t is a
+vector of control variables.
+Control variables include the trade-to-GDP ratio and the REER (Real Effective Exchange
+Rate). The models are estimated using a long-differences approach. The specification in-
+cludes time fixed effects, two lags of the dependent variable, and two lags of the shock.
+One important distinction between the original specification in Furceri et al. (2018) is that
+using our derivations in section (3) we assume that the individual effects αi are eliminated
+by differentiating, and thus, the correct specification should be:
+yi,t+h −yi,t−1 = γt + βh∆Ti,t + θXi,t + ϵi,t
+However, for the comparison we used fixed-effects even though the models are in long-
+differences. In Figure 8 we can see that the IRF estimated with the CMOLS estimator in the
+case of real GDP displays a more severe impact than the one estimated by the cumulative-
+differences with fixed-effects (CMFE) estimator. However, the impact is smaller than the
+one estimated by the SPJ estimator, especially at longer horizons.
+A similar result could be seen in the case where real exports are the response variable.
+In this case the difference between the CMFE and the CMOLS estimators is much smaller.
+However, the difference with the SPJ is significant.
+These empirical results are consistent with the simulation evidence, in which SPJ tends
+to overcorrect in several specifications, especially when shocks and outcomes are jointly
+persistent.
+38
+
+Figure 8: Impulse response of Real GDP & Exports to a change in tariffs
+6.2
+Impact of Currency Crises on Output Loss
+We replicate the results in Mei, Sheng and Shi (2026) in which they examine the impact
+of currency crises on output loss. They used the data set from Cerra and Saxena (2008),
+which includes panel data on currency crises for 175 countries from 1965 to 2000.
+An
+exchange market pressure index (EMPI) is constructed as the sum of the percentage depre-
+ciation in the exchange rate and the percentage loss in foreign exchange reserves, allowing
+for cross-country comparability. A dummy variable for a currency crisis is assigned to a
+specific year and country if the EMPI is in the upper quartile of all observations within the
+panel. The panel local projection (LP) specification is as follows:
+yi,t+h −yi,t−1 = αh,i + βhxi,t +
+4
+∑
+j=1
+(θh,jxi,t−j + ηh,j∆yi,t−j) + ϵi,t;
+h = 1, ..., 10
+The dependent variable is the cumulative difference in the logarithm of real GDP. The shock
+xi,t is a dummy variable indicating a currency crisis.
+Although the regression is still estimated through cumulative-differences, Cerra and
+Saxena (2008) and Mei, Sheng and Shi (2026) assume that the individual effects should still
+be included in the specification and proceed to estimate the IRF through fixed-effects.
+In a similar way to the previous example, the IRF estimated by the SPJ estimator is
+39
+
+Figure 9: Impulse Responses of Real GDP to Currency Crises
+significantly more severe than the one estimated by the CMFE estimator, which would indi-
+cate a significantly higher impact at longer horizons. However, the CMOLS only estimates
+a modest correction at the longest horizons with respect to the CMFE.
+6.3
+Impact of household and non-financial-firms debt, on economic output
+Mian, Sufi and Verner (2017) explore the dynamics between household debt, non-
+financial firms debt, and economic fluctuations, with a cross-country panel via both VAR
+and LP. They find that a rise in the household debt to GDP ratio from four years ago to last
+year predicts a substantial decline in subsequent real GDP growth from the current year
+onward. By contrast, the output declines immediately following firm debt shocks, whereas
+recovers gradually afterward. They use an unbalanced panel of 30 countries from 1960 to
+2012 and specify the LP regressions as follows:
+yi,t+h = αi,h + βh,HHHHi,t−1 + βh,NFNFi,t−1 +
+5
+∑
+j=2
+(θh,jHHi,t−j + ωh,jNFi,t−j) +
+5
+∑
+j=1
+ηh,jyi,t−j + ϵi,t
+40
+
+The shock variables are the household debt to GDP ratio and the non-financial firm debt to
+GDP ratio included with one lag, i.e. HHi,t−1 and NFi,t−1. Control variables include four
+additional lags of household debt to GDP ratio and non-financial firm debt to GDP ratio,
+and five lags of the dependent variable.
+The results in 10 show that when the shock is the household debt to GDP ratio, the
+CMOLS estimator finds a higher negative impact than the one estimated through CMFE
+at the longest horizons, but a smaller one than the estimated through SPJ. On the other
+hand, the impact estimate when the shock corresponds to the non-financial firm debt to
+GDP ratio is higher when estimated through CMOLS than either the FE or SPJ estimators,
+which surprisingly, are almost identical.
+Figure 10: Impulse Responses of Real GDP to Household Debt and Nonfinancial Firm Debt
+41
+
+7
+Conclusion
+This paper studies the statistical properties of local projection estimators in panel data
+settings under alternative forms of serial persistence, alternative estimators, and alternative
+dynamic specifications. Motivated by recent evidence that fixed-effects panel local projec-
+tions suffer from Nickell-type biases, we analyze whether these distortions can be avoided
+through alternative transformations of the dependent variable.
+The central contribution of the paper is to show that cumulative-difference transforma-
+tions provide a natural alternative to fixed-effects estimation in panel local projections. We
+demonstrate theoretically that cumulative differencing eliminates individual effects directly,
+thereby avoiding the within transformation that lies at the center of the incidental parameter
+problem. This allows impulse responses to be estimated consistently using pooled OLS.
+Our Monte Carlo experiments confirm the unbiasedness of our proposed estimator and
+also reveal several important findings. First, the finite-sample behavior of panel LP estima-
+tors critically depends on the persistence structure of the data-generating process. While
+fixed-effects estimators typically exhibit attenuation bias when persistence resides only in
+the shock variable, both fixed-effects and split-panel jackknife estimators may exhibit sub-
+stantial upward bias when shocks and outcomes are jointly persistent and no lags of the
+shock are included in the specification.
+Second, dynamic specification choices play a crucial role in estimator performance. In
+particular, the inclusion of at least one lag of the shock variable is necessary to avoid
+omitted-variable bias whenever shocks are persistent, particularly when using a cumulative-
+difference (or simple difference) transformation of the dependent variable.
+Most importantly, we show that cumulative-difference local projections estimated using
+pooled OLS and including one lag of the shock variable consistently provide the best over-
+all finite-sample performance across the environments considered in this paper. Relative to
+conventional fixed-effects estimators, split-panel jackknife corrections, and random-effects
+alternatives, the proposed estimator generally exhibits substantially lower bias and signifi-
+cantly improved coverage probabilities across horizons, persistence structures, and sample
+dimensions.
+The empirical applications reinforce these conclusions. Re-estimating several influen-
+42
+
+tial panel local projection studies using the alternative estimators considered in this paper
+reveals that the choice of estimator can materially affect the magnitude of the estimated im-
+pulse responses. Although empirical applications do not reveal the true impulse response,
+the observed differences closely mirror the patterns documented in the Monte Carlo ex-
+periments. In particular, the split-panel jackknife estimator frequently produces larger re-
+sponses than cumulative-difference OLS in settings where our simulations predict upward
+over-correction under joint persistence. These findings suggest that methodological choices
+in panel local projections are not merely technical, but may influence the substantive eco-
+nomic conclusions drawn from empirical analyses.
+These results suggest that many of the distortions emphasized in recent panel LP re-
+search are not inherent to local projections themselves, but instead arise from the interac-
+tion between within transformations and dynamic persistence. The findings therefore point
+toward specification design and variable transformation as central components of reliable
+panel local projection estimation.
+We can summarize the theoretical derivations and simulation results regarding the dif-
+ferent estimators considered throughout this paper in the following points:
+• OLS-Cumulative-Difference estimator with one lag of the shock: Best overall perfor-
+mance, near zero bias and almost perfect coverage probability across different specifi-
+cations and data generating processes.
+• RE-Cumulative-Difference estimator with one lag of the shock: very strong perfor-
+mance, very similar to the OLS case, but slightly inferior at long horizons due to the
+pseudo within-transformation.
+• SPJ estimator: Effective correction in the Mei-Sheng-Shi benchmark environment (per-
+sistence of the shock), but could perform poorly when both the shock and dependent
+variable are highly persistent.
+• FE estimator: persistent and unstable negative bias due to the within-transformation.
+• RE estimator: Highly unstable even when individual effects are exogenous
+• FE-Cumulative-Difference estimator: It exhibits a similar negative bias as the FE one
+43
+
+due to the within-transformation. Moreover, it performs extremely poorly when the
+shock is persistent and no lags of it are included in the specification.
+Two important points that need to be remark regarding the empirical application of the
+theoretical results presented here:
+• In the theoretical framework and simulations, the autocorrelation structure is very
+simple. However, in reality, a variable could exhibit autocorrelation of order higher
+than one. Thus, in practical applications it would be important to include more lags
+of the shock if one considers that the shock could be correlated with higher order lags
+that could bias the estimation if they are omitted.
+• We also avoid including other control variables in the theoretical results. However,
+in practical applications it would be the most common option to include them. We
+have to think that in such case we should apply the same specification to any control
+variable than the one applied to the shock. If the shock is included with one lag, we
+should also include the control variables with one lag. It we include two lags of the
+shock, the control variables should be included with two lags.
+Several directions for future research remain open such as extending the analysis to
+nonlinear local projections, binary dependent variable, instrumental-variable settings, and
+unbalanced panels represents a promising avenue for future work.
+44
+
+References
+Anderson, Theodore Wilbur, and Cheng Hsiao. 1981. “Estimation of dynamic models with
+error components.” Journal of the American statistical Association, 76(375): 598–606.
+Bruno, Giovanni S.F. 2005. “XTARSIM: Stata module to perform Monte Carlo analysis for
+dynamic panel data models.” Statistical Software Components, Boston College Department of
+Economics.
+Cerra, Valerie, and Sweta Chaman Saxena. 2008. “Growth dynamics: the myth of economic
+recovery.” American Economic Review, 98(1): 439–457.
+Furceri, Davide, Swarnali A Hannan, Jonathan D Ostry, and Andrew K Rose. 2018.
+“Macroeconomic consequences of tariffs.” National Bureau of Economic Research.
+Greene, William H. 2003. Econometric Analysis: William H. Greene. Prentice Hall.
+Herbst, Edward P, and Benjamin K Johannsen. 2024. “Bias in local projections.” Journal of
+Econometrics, 240(1): 105655.
+Jordà, Òscar. 2005. “Estimation and inference of impulse responses by local projections.”
+American economic review, 95(1): 161–182.
+Jordà, Òscar, and Alan M Taylor. 2025. “Local projections.” Journal of Economic Literature,
+63(1): 59–110.
+Lovell, Michael C. 2008. “A simple proof of the FWL theorem.” The Journal of Economic
+Education, 39(1): 88–91.
+Mei, Ziwei, Liugang Sheng, and Zhentao Shi. 2026. “Nickell bias in panel local projection:
+Financial crises are worse than you think.” Journal of International Economics, 104210.
+Mian, Atif, Amir Sufi, and Emil Verner. 2017. “Household debt and business cycles world-
+wide.” The Quarterly Journal of Economics, 132(4): 1755–1817.
+Nickell, Stephen. 1981. “Biases in dynamic models with fixed effects.” Econometrica: Journal
+of the econometric society, 1417–1426.
+45
+
+Sun, Yutao, and Geert Dhaene. 2019. “XTSPJ: Stata module for split-panel jackknife esti-
+mation.” Statistical Software Components, Boston College Department of Economics.
+Ugarte-Ruiz, Alfonso. 2023. “LOCPROJ: Stata module to estimate Local Projections.” Sta-
+tistical Software Components, Boston College Department of Economics.
+Ugarte-Ruiz, Alfonso. Forthcoming. “Locproj & Lpgraph: Stata commands to estimate
+Local Projections.” Stata Journal.
+46
+
+A
+Appendix
+A.1
+Cumulative Differences Estimator for h>0
+We start with the h = 1 case. yt+1 is given by:
+yi,t+1 = ρyyi,t + βsi,t+1 + ui + ei,t+1
+(26)
+Replacing si,t+1 = ρssi,t + vi,t+1 and equation (15) into (26) and rearranging terms we get
+the following expression for yi,t+1 as a function of si,t:
+yi,t+1 =
+T0
+∑
+k=1
+ρk+1
+y
+(βsi,t−k + ei,t−k) + β(ρy + ρs)si,t + ei,t+1 + ρyei,t + βvi,t+1 +
+T0+1
+∑
+k=0
+ρk
+yui
+(27)
+Subtracting yt−1 as in equation (17) to obtain yi,t+1 −yi,t−1, and using that the last term
+∑T0+1
+k=0 ρk
+yui can be separated into ∑T0+1
+k=T0 ρk
+yui + ∑T0−1
+k=0 ρk
+yui:
+yi,t+1 −yi,t−1 =
+T0
+∑
+k=1
+(ρk+1
+y
+−ρk−1
+y
+)(βsi,t−k + ei,t−k)
++ β(ρy + ρs)si,t + ei,t+1 + ρyei,t + βvi,t+1 +
+T0+1
+∑
+k=T0
+ρk
+yui
+(28)
+Since the last term ∑T0+1
+k=T ρk
+yui = ρT0+1
+y
+ui + ρT0
+y ui, and since both ρT0+1
+y
+ui ≃0 and ρT0
+y ui ≃
+0, when |py| < 1 we have shown that individual effects have been eliminated by differenti-
+ation and that with the cumulative differencing in h = 1 we can recover the correct impulse
+response which in this case is β(ρy + ρs)si,t.
+Thus we can avoid the within-transformation and estimate this local projection through
+OLS or RE using the following specification:
+yi,t+1 −yi,t−1 = β1si,t + γ1si,t−1 + ϵi,t+1
+(29)
+Where β1 = β(ρy + ρs); γ1 = (ρ2
+y −1)β;
+and ϵi,t+1 = ei,t+1 + ρyei,t + βvi,t+1 + ∑T0
+k=1(ρk+1
+y
+−ρk−1
+y
+)ei,t−k + ∑T0
+k=2(ρk+1
+y
+−ρk−1
+y
+)βsi,t−k
+47
+
+When h = 2, yt+2 is given by:
+yi,t+2 = ρyyi,t+1 + βsi,t+2 + ui + ei,t+2
+(30)
+Replacing si,t+2 = ρssi,t+1 + vi,t+2 and then replacing the corresponding expression for
+st+1 into the resulting equation, we would get yi,t+2 as a function of si,t:
+yi,t+2 = ρyyi,t+1 + βρ2si,t + βvi,t+2 + βρsvi,t+1 + ui + ei,t+2
+(31)
+Then we replace yi,t+1 as in equation (27) and rearranging terms we get the following
+expression for yi,t+2:
+yi,t+2 =
+T0
+∑
+k=1
+ρk+2
+y
+(βsi,t−k + ei,t−k) + β(ρ2
+y + ρy + ρs + ρ2
+s)si,t
++ei,t+2 + ρyei,t+1 + ρ2
+yei,t+1 + β(vi,t+2 + ρsvi,t+1) +
+T0+2
+∑
+k=0
+ρk
+yui
+(32)
+Subtracting yt−1 as in equation (17) to obtain yi,t+1 −yi,t−1, and using that the last term
+∑T0+2
+k=0 ρk
+yui can be separated into ∑T0+2
+k=T0 ρk
+yui + ∑T0−1
+k=0 ρk
+yui we get the following expression for
+yi,t+2 −yi,t−1;
+yi,t+2 −yi,t−1 =
+T0
+∑
+k=1
+(ρk+2
+y
+−ρk−1
+y
+)(βsi,t−k + ei,t−k)
++ β(ρ2
+y + ρy + ρs + ρ2
+s)si,t + ei,t+2 + ρyei,t+1 + ρ2
+yei,t+1+
+β(vi,t+2 + ρsvi,t+1) +
+T0+2
+∑
+k=T0
+ρk
+yui
+(33)
+Since the last term ∑T0+2
+k=T0 ρk
+yui ≃0 since |py| < 1 and T0, T0 + 1 and T0 + 2 are all very
+large powers, then equation (33) shows that differentiating has eliminated the individual
+effects. The same conclusions follow and the local projection specification when h = 2
+would be given by:
+yi,t+2 −yi,t−1 = β2si,t + γ2si,t−1 + ϵi,t+2
+(34)
+Where β2 = β(ρ2
+y + ρyρs + ρ2
+s); γ2 = (ρ3
+y −1)β;
+48
+
+and ϵi,t+2 =
+ei,t+2 + ρyei,t+1 + ρ2
+yei,t + ∑T0
+k=1(ρk+2
+y
+−ρk−1
+y
+)ei,t−k + β(vi,t+2 + ρsvi,t+1) + ∑T0
+k=2(ρk+2
+y
+−ρk−1
+y
+)βsi,t−k
+When h = 3, yt+3 we can follow the same recursive replacing to get the following
+specification:
+yi,t+3 −yi,t−1 = β3si,t + γ3si,t−1 + ϵi,t+3
+(35)
+Where β3 = β(ρ3
+y + ρ2
+yρs + ρyρ2
+s + ρ3
+s); γ3 = (ρ4
+y −1)β;
+and ϵi,t+3 = ei,t+3 + ρyei,t+2 + ρ2
+yei,t+1 + ρ3
+yei,t + ∑T0
+k=1(ρk+3
+y
+−ρk−1
+y
+)ei,t−k + β(vi,t+3 + ρsvi,t+2 +
+ρ2
+svi,t+1) + ∑T0
+k=2(ρk+3
+y
+−ρk−1
+y
+)βsi,t−k
+A.2
+Proof of Proposition 1: Unbiasedness of ˆβh when 0 < ρs < 1
+The formal result uses the Frisch–Waugh–Lovell theorem, which says that a multiple
+regression coefficient equals the regression of y on the part of that regressor orthogonal to
+the other regressors. Our dependent variable is given by equation (20).
+ˆβh is obtained by first residualizing si,t in si,t−1. Since: si,t = ρssi,t−1 + vi,t, and using
+Assumption 2 which implies that:
+E[si,t|si,t−1, ..., si,t−k] = ρssi,t−1
+Then the residual from projecting si,t on si,t−1 is vi,t, i.e.:
+˜si,t = vi,t
+Therefore, following the Frisch–Waugh–Lovell theorem, the pooled OLS estimator of ˆβh
+would be given by:
+ˆβh = E[ ˜si,t(yi,t+h −yi,t−1)]
+E[ ˜si,tsi,t]]
+= E[vi,t(yi,t+h −yi,t−1)]
+E[vi,tsi,t]]
+(36)
+If we replace yi,t+h −yi,t−1 from equation (20):
+E[vi,t(yi,t+h −yi,t−1)] = E[vi,t(βhsi,t + γhsi,t−1 + ϵi,t+h)]
+49
+
+According to Assumption 1, vi,t is orthogonal to all past values of si,t and to all other
+elements in ϵi,t+h. Therefore, all terms vanish except the contemporaneous one:
+E[vi,t(yi,t+h −yi,t−1)] = E[vi,t(βhsi,t)]
+Thus, equation (36) becomes:
+ˆβh = βh
+E[vi,tsi,t]
+E[vi,tsi,t]] = βh
+(37)
+50
+
+A.3
+Simulations when individual effects are not correlated to the shock
+In Figures A1 to A3 we can see the case where we assume that the individual effects
+are not correlated to our shock variable si,t. The most important result in this case is that,
+unexpectedly, the RE estimator is also biased in most cases, especially at longer horizons.
+This follows again from the pseudo within transformation that is implicit in the RE
+estimator which makes it also vulnerable to the Nickell-bias whenever the between variance
+is much higher than the within variance, which makes the RE estimator converge towards
+the FE one.
+51
+
+Figure A1: IRF, Uncorrelated individual effects, N = 100, T = 50 when ρs = 0.8 and ρy = 0
+52
+
+Figure A2: IRF, Uncorrelated individual effects, N = 100, T = 50 ρs = 0 and ρy = 0.8
+53
+
+Figure A3: IRF, Uncorrelated individual effects, N = 100, T = 50 ρs = 0.8 and ρy = 0.8
+54
+
+Table A1: DGP: E[si,t|ui] = 0; N = 100, T = 50 when ρs = 0.8 and ρy = 0
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+0.03
+-0.02
+-0.17
+0.95
+0.96
+0.93
+CMRE1
+-0.79
+-0.01
+-4.03
+0.90
+0.93
+0.65
+RE
+-1.41
+0.01
+-5.87
+0.83
+0.95
+0.41
+SPJ
+-0.02
+0.02
+-2.69
+0.80
+0.93
+0.67
+CMRE
+-39.78
+-38.97
+-43.08
+0.45
+0.47
+0.33
+CMFE1
+-7.32
+0.04
+-11.50
+0.25
+0.94
+0.01
+FE
+-8.24
+0.05
+-12.94
+0.20
+0.93
+0.01
+CMFE
+-45.95
+-36.63
+-51.08
+0.12
+0.47
+0.00
+Table A2: DGP: E[si,t|ui] = 0; N = 100, T = 50 when ρs = 0 and ρy = 0.8
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.00
+0.03
+-0.22
+0.98
+0.94
+0.98
+CMRE
+-0.07
+0.05
+-0.24
+0.95
+0.95
+0.95
+CMRE1
+-0.16
+0.04
+-0.83
+0.95
+0.94
+0.94
+CMFE
+-0.49
+1.60
+-1.21
+0.90
+0.39
+0.95
+SPJ
+-0.32
+-0.11
+-2.26
+0.86
+0.91
+0.79
+CMFE1
+-2.06
+1.23
+-3.60
+0.85
+0.58
+0.85
+RE
+-2.79
+-1.60
+-6.15
+0.72
+0.73
+0.36
+FE
+-7.90
+-2.92
+-10.74
+0.16
+0.53
+0.01
+Table A3: DGP: E[si,t|ui] = 0; N = 100, T = 50 when ρs = 0.8 and ρy = 0.8
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+0.15
+0.08
+0.15
+0.94
+0.94
+0.95
+CMRE1
+-1.45
+0.16
+-6.91
+0.91
+0.92
+0.85
+CMFE1
+-9.51
+3.50
+-27.14
+0.65
+0.68
+0.28
+RE
+4.66
+36.02
+-24.90
+0.55
+0.56
+0.30
+SPJ
+23.27
+43.23
+8.40
+0.54
+0.62
+0.61
+CMRE
+-75.39
+-23.01
+-109.13
+0.45
+0.47
+0.44
+CMFE
+-76.33
+-15.81
+-122.58
+0.34
+0.31
+0.20
+FE
+-8.34
+32.16
+-43.37
+0.21
+0.44
+0.02
+55
+
+Table A4: DGP: E[si,t|ui] = 0; N = 100, T = 50 when ρs = 0.8 and ρy = 0; Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS: sl1, yl1
+-0.01
+0.01
+-0.17
+0.96
+0.98
+0.98
+SPJ: sl1, yl0
+0.26
+-0.01
+-1.56
+0.91
+0.94
+0.83
+CMRE: sl1, yl1
+-0.75
+0.07
+-3.92
+0.91
+0.95
+0.67
+CMRE1: sl0, yl0
+-0.54
+0.02
+-3.55
+0.90
+0.94
+0.70
+RE: sl1, yl1
+-0.83
+0.01
+-4.11
+0.90
+0.99
+0.57
+CMFE1: sl0, yl1
+-7.04
+0.03
+-11.16
+0.27
+0.95
+0.04
+CMFE: sl1, yl1
+-7.20
+-0.16
+-11.32
+0.27
+0.95
+0.01
+FE: sl1, yl1
+-7.20
+-0.00
+-11.19
+0.25
+0.96
+0.02
+Table A5: DGP: E[si,t|ui] = 0; N = 100, T = 50 when ρs = 0 and ρy = 0.8; Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS: sl0, yl0
+-0.04
+0.01
+-0.16
+0.98
+0.96
+1.00
+CMRE: sl1, yl1
+-0.00
+-0.01
+-0.19
+0.96
+0.96
+0.96
+CMRE1: sl0, yl0
+0.01
+0.00
+-0.40
+0.96
+0.96
+0.96
+CMFE: sl1, yl0
+0.67
+1.15
+0.30
+0.93
+0.61
+0.99
+CMFE1: sl0, yl0
+-0.77
+1.04
+-2.04
+0.93
+0.65
+0.97
+SPJ: sl1, yl1
+0.44
+0.10
+-1.43
+0.88
+0.96
+0.80
+RE: sl1, yl1
+-1.55
+0.00
+-5.65
+0.84
+0.96
+0.43
+FE: sl0, yl1
+-7.14
+-0.02
+-10.24
+0.27
+0.96
+0.02
+Table A6: DGP: E[si,t|ui] = 0; N = 100, T = 50 when ρs = 0.8 and ρy = 0.8; Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS: sl1, yl0
+0.20
+-0.12
+-0.42
+0.95
+0.97
+0.96
+CMRE: sl1, yl0
+0.11
+-0.10
+-5.14
+0.94
+0.94
+0.90
+CMRE1: sl1, yl0
+-1.01
+-0.14
+-5.38
+0.93
+0.93
+0.87
+RE: sl0, yl1
+-5.47
+0.53
+-21.07
+0.83
+0.91
+0.56
+SPJ: sl1, yl0
+1.56
+0.87
+2.02
+0.83
+0.86
+0.87
+CMFE: sl1, yl0
+-5.02
+3.28
+-20.52
+0.72
+0.70
+0.52
+CMFE1: sl0, yl0
+-6.22
+2.79
+-22.02
+0.69
+0.80
+0.46
+FE: sl0, yl1
+-12.30
+0.25
+-30.83
+0.42
+0.91
+0.08
+56
+
+A.4
+Simulation results for sample with more time periods than individuals
+In Figures A4 to A6 we can see the case when we have much longer time-periods than
+individuals. In this case, we can observe that the bias of all estimators decrease compared
+to the case with more individuals than time-periods, which is also noticed by Mei, Sheng
+and Shi (2026). The main results highlighted in the previous section continue to hold.
+57
+
+Figure A4: IRF, N = 30, T = 60 when ρs = 0.8 and ρy = 0
+58
+
+Figure A5: IRF, N = 30, T = 60 when ρs = 0 and ρy = 0.8
+59
+
+Figure A6: IRF, N = 30, T = 60 when ρs = 0.8 and ρy = 0.8
+60
+
+Table A7: DGP: N = 30, T = 60 when ρs = 0.8 and ρy = 0
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.16
+-0.01
+-0.02
+0.95
+0.94
+0.94
+CMRE1
+-0.50
+-0.09
+-2.14
+0.94
+0.95
+0.92
+SPJ
+0.33
+-0.04
+-1.12
+0.84
+0.94
+0.76
+CMFE1
+-5.87
+-0.04
+-9.25
+0.63
+0.97
+0.40
+FE
+-6.66
+-0.01
+-10.50
+0.51
+0.96
+0.28
+CMRE
+-39.47
+-38.98
+-41.08
+0.47
+0.47
+0.45
+RE
+-18.84
+16.63
+-29.08
+0.45
+0.25
+0.35
+CMFE
+-44.65
+-37.08
+-48.78
+0.33
+0.48
+0.20
+Table A8: DGP: N = 30, T = 60 when ρs = 0 and ρy = 0.8
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.01
+0.02
+0.09
+0.98
+0.96
+0.99
+CMFE
+-0.36
+1.32
+-1.23
+0.96
+0.78
+0.97
+CMFE1
+-1.74
+0.99
+-3.27
+0.95
+0.84
+0.96
+CMRE1
+-0.15
+-0.00
+-0.65
+0.95
+0.95
+0.94
+CMRE
+-0.05
+0.01
+-0.32
+0.94
+0.93
+0.94
+SPJ
+0.10
+-0.08
+-1.03
+0.88
+0.92
+0.91
+RE
+0.68
+2.52
+-2.25
+0.77
+0.66
+0.80
+FE
+-6.48
+-2.58
+-8.85
+0.59
+0.78
+0.47
+Table A9: DGP: N = 30, T = 60 when ρs = 0.8 and ρy = 0.8
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+0.66
+0.40
+0.10
+0.93
+0.93
+0.95
+CMRE1
+0.40
+0.46
+-1.60
+0.93
+0.96
+0.92
+CMFE1
+-5.69
+3.30
+-19.12
+0.86
+0.85
+0.79
+SPJ
+22.12
+42.69
+8.44
+0.62
+0.69
+0.66
+FE
+-3.13
+33.24
+-33.56
+0.48
+0.62
+0.28
+RE
+7.06
+51.12
+-26.57
+0.48
+0.33
+0.59
+CMRE
+-73.18
+-22.45
+-104.38
+0.47
+0.48
+0.46
+CMFE
+-73.72
+-16.43
+-116.62
+0.44
+0.43
+0.43
+61
+
+Table A10: DGP: N = 30, T = 60 when ρs = 0.8 and ρy = 0; Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator &Best Spec.
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS: sl0, yl0
+0.05
+-0.03
+-0.00
+0.96
+0.97
+0.96
+CMRE1: sl0, yl0
+-0.33
+-0.05
+-1.64
+0.95
+0.97
+0.94
+CMRE: sl1, yl0
+-0.17
+0.03
+-1.52
+0.94
+0.95
+0.91
+SPJ: sl1, yl0
+0.63
+0.03
+0.15
+0.91
+0.97
+0.89
+RE: sl1, yl1
+-0.89
+0.35
+-7.92
+0.73
+0.95
+0.55
+CMFE: sl1, yl1
+-5.52
+-0.14
+-8.66
+0.67
+0.97
+0.44
+CMFE1: sl0, yl0
+-5.69
+-0.05
+-8.60
+0.65
+0.98
+0.47
+FE: sl1, yl1
+-5.67
+0.00
+-8.72
+0.64
+0.98
+0.41
+Table A11: DGP: N = 30, T = 60 when ρs = 0 and ρy = 0.8; Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator &Best Spec.
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS: sl0, yl0
+-0.05
+0.02
+0.06
+0.98
+0.97
+1.00
+CMFE: sl0, yl1
+0.59
+0.91
+-0.04
+0.97
+0.88
+1.00
+CMRE1: sl0, yl1
+-0.01
+0.05
+-0.52
+0.97
+0.99
+0.95
+CMFE1: sl0, yl1
+-0.69
+0.84
+-1.95
+0.96
+0.93
+1.00
+CMRE: sl0, yl1
+-0.07
+0.03
+-0.03
+0.95
+0.98
+0.96
+SPJ: sl0, yl1
+-0.55
+0.08
+0.17
+0.92
+0.98
+0.92
+RE: sl1, yl0
+-1.59
+1.25
+1.15
+0.83
+0.94
+0.91
+FE: sl1, yl1
+-5.39
+-0.00
+-8.61
+0.67
+0.98
+0.54
+Table A12: DGP: N = 30, T = 60 when ρs = 0.8 and ρy = 0; Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator &Best Spec.
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMRE1: sl1, yl1
+-1.00
+0.25
+0.21
+0.96
+0.97
+0.95
+CMRE: sl1, yl1
+0.09
+0.75
+0.52
+0.96
+0.96
+0.95
+CMOLS: sl1, yl1
+0.02
+0.17
+-0.47
+0.95
+0.95
+0.98
+CMFE: sl1, yl1
+-3.73
+3.52
+-15.18
+0.91
+0.87
+0.88
+CMFE1: sl1, yl1
+-1.59
+2.43
+-13.72
+0.89
+0.93
+0.90
+SPJ: sl1, yl1
+-0.23
+-0.13
+0.73
+0.86
+0.93
+0.84
+RE: sl1, yl0
+-6.71
+7.15
+7.53
+0.77
+0.86
+0.91
+FE: sl0, yl1
+-8.62
+0.61
+-21.00
+0.65
+0.95
+0.46
+62
+
+A.5
+Simulations with lower autocorrelation
+In Figures A7 to A9 we can see the case when our series have a lower autocorrelation,
+in this case, for either yi,t and si,t we assume an autocorrelation coefficient of 0.8 instead of
+0.8. Again, we can notice that the bias of all the estimators also decreases compared to the
+first case, and is almost unnoticeable in most cases.
+63
+
+Figure A7: IRF, N = 100, T = 50 when ρs = 0.5 and ρy = 0
+64
+
+Figure A8: IRF, N = 100, T = 50 ρs = 0 and ρy = 0.5
+65
+
+Figure A9: IRF, N = 100, T = 50 ρs = 0.5 and ρy = 0.5
+66
+
+Table A13: DGP: N = 100, T = 50 when ρs = 0.5 and ρy = 0
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.03
+-0.02
+-0.11
+0.95
+0.96
+0.95
+CMRE1
+-0.06
+-0.02
+-0.27
+0.94
+0.95
+0.94
+SPJ
+-0.49
+0.02
+-1.95
+0.87
+0.94
+0.77
+CMRE
+-22.43
+-22.43
+-22.52
+0.47
+0.48
+0.47
+CMFE1
+-3.66
+0.01
+-4.57
+0.44
+0.95
+0.30
+RE
+-9.50
+6.19
+-13.43
+0.38
+0.22
+0.35
+FE
+-3.92
+0.02
+-4.88
+0.37
+0.94
+0.24
+CMFE
+-24.86
+-20.62
+-25.67
+0.23
+0.48
+0.19
+Table A14: DGP: N = 100, T = 50 when ρs = 0 and ρy = 0.5
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.09
+-0.01
+-0.20
+0.96
+0.95
+0.95
+CMRE1
+0.03
+0.02
+-0.15
+0.95
+0.95
+0.94
+CMRE
+0.02
+0.01
+-0.13
+0.95
+0.94
+0.94
+SPJ
+-0.41
+0.05
+-1.75
+0.91
+0.94
+0.83
+CMFE
+-0.74
+1.32
+-1.06
+0.83
+0.57
+0.82
+CMFE1
+-2.36
+0.57
+-3.06
+0.72
+0.80
+0.70
+RE
+2.35
+7.01
+0.60
+0.54
+0.07
+0.59
+FE
+-3.57
+-0.67
+-4.34
+0.43
+0.77
+0.33
+Table A15: DGP: N = 100, T = 50 when ρs = 0.5 and ρy = 0.5
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS
+-0.13
+0.00
+-0.17
+0.96
+0.95
+0.96
+CMRE1
+-0.28
+0.06
+-1.62
+0.94
+0.95
+0.88
+SPJ
+1.39
+8.50
+-2.37
+0.77
+0.68
+0.75
+CMFE1
+-4.97
+0.83
+-7.19
+0.50
+0.78
+0.33
+CMRE
+-27.68
+-15.26
+-31.37
+0.47
+0.46
+0.44
+RE
+-6.70
+21.28
+-14.44
+0.40
+0.01
+0.34
+FE
+-5.33
+7.20
+-9.38
+0.28
+0.64
+0.12
+CMFE
+-30.12
+-12.56
+-35.15
+0.27
+0.38
+0.19
+67
+
+Table A16: DGP: N = 100, T = 50 when ρs = 0.5 and ρy = 0; Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS: sl0, yl1
+-0.03
+0.01
+-0.03
+0.96
+0.99
+0.98
+CMRE1: sl1, yl1
+-0.01
+0.02
+-0.13
+0.95
+0.97
+0.95
+CMRE: sl1, yl1
+-0.05
+0.02
+-0.12
+0.94
+0.96
+0.95
+SPJ: sl1, yl0
+-0.24
+0.02
+-1.59
+0.90
+0.98
+0.87
+RE: sl1, yl0
+-0.60
+0.40
+-3.30
+0.56
+0.88
+0.59
+CMFE1: sl0, yl1
+-3.53
+0.02
+-4.43
+0.48
+0.97
+0.31
+CMFE: sl1, yl1
+-3.58
+0.01
+-4.37
+0.46
+0.96
+0.39
+FE: sl0, yl1
+-3.53
+-0.00
+-4.33
+0.45
+0.99
+0.33
+Table A17: DGP: N = 100, T = 50 when ρs = 0 and ρy = 0.5; Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS: sl0, yl0
+-0.01
+0.02
+-0.06
+0.98
+0.98
+0.98
+CMRE1: sl0, yl1
+0.04
+-0.01
+0.04
+0.96
+0.98
+0.95
+CMRE: sl0, yl0
+-0.06
+-0.01
+0.08
+0.95
+0.97
+0.96
+SPJ: sl1, yl1
+-0.26
+-0.02
+-1.47
+0.92
+0.98
+0.85
+CMFE: sl0, yl0
+0.72
+0.35
+0.83
+0.92
+0.93
+0.93
+CMFE1: sl0, yl0
+-1.31
+0.37
+-1.69
+0.89
+0.91
+0.89
+RE: sl1, yl1
+-0.39
+1.81
+1.15
+0.75
+0.28
+0.90
+FE: sl0, yl1
+-3.48
+0.01
+-4.04
+0.45
+0.98
+0.38
+Table A18: DGP: N = 100, T = 50 when ρs = 0.5 and ρy = 0.5; Best specification
+Bias (in % of β)
+Coverage Probability
+Estimator
+Average
+h = 0
+h = 9
+Average
+h = 0
+h = 9
+CMOLS: sl0, yl0
+-0.04
+-0.00
+0.11
+0.97
+0.96
+0.99
+CMRE1: sl0, yl0
+-0.03
+0.02
+-0.99
+0.95
+0.99
+0.93
+CMRE: sl1, yl1
+-0.12
+0.04
+-1.11
+0.94
+0.93
+0.90
+SPJ: sl1, yl0
+0.06
+0.07
+-0.17
+0.89
+0.92
+0.86
+RE: sl1, yl1
+0.16
+2.92
+-1.04
+0.82
+0.06
+0.93
+CMFE1: sl0, yl0
+-3.52
+0.56
+-5.57
+0.70
+0.87
+0.59
+CMFE: sl1, yl0
+-3.56
+0.58
+-5.62
+0.68
+0.87
+0.58
+FE: sl0, yl1
+-3.09
+0.12
+-6.98
+0.42
+0.94
+0.23
+68
+
+ 
+Panel Local Projections without Fixed-Effects: A Cumulative-Difference OLS Estimator- June 29, 2026 p.69 
+ 
+Working paper 
+2026 
+26/09 Alfonso Ugarte-Ruiz: Panel Local Projections without Fixed-Effects: A Cumulative-Difference OLS 
+Estimator 
+26/08 Miguel Jiménez, David Sarasa-Flores, Alfonso Ugarte-Ruiz: Assessing Structural Geopolitical Risk. 
+26/07 Ángel de la Fuente: Las finanzas autonómicas en 2025 y entre 2003 y 2025. 
+26/06 Ángel de la Fuente, Pep Ruiz Aguirre: Series largas de VAB y empleo regional por sectores, 1955-2024 
+Actualización de RegData-Sect hasta 2024*. 
+26/05 Marco Lara, Juan José Li Ng: Desigualdades educativas en México: Inequidades y rezago educativo. 
+26/04 Alvaro Ortiz, Tomasa Rodrigo, Pablo Saborido: Geopolitics, geoeconomics, and sovereign risk: different 
+shocks, different channels. 
+26/03 Alvaro Ortiz, Tomasa Rodrigo, Pablo Saborido: Geopolitics, geoeconomics and sovereign risk: different 
+shocks, different channels. 
+26/02 Ángel de la Fuente, Rafael Doménech: Criterios operativos de equidad para el Sistema de Financiación 
+Autonómica con aplicación a la nueva propuesta de reforma. 
+26/01 Ángel de la Fuente: Series largas de algunos agregados económicos y demográficos regionales: 
+Actualización de RegData hasta 2024. (RegData y RegData Dem versión 7.1-2024). 
+2025 
+25/15 Ángel de la Fuente: La evolución de la financiación de las comunidades autónomas de régimen común, 
+2002-2023. 
+25/14 Alvaro Ortiz, Tomasa Rodrigo: Geopolitics, geoeconomics and risk: a machine learning approach. 
+25/13 Joxe Mari Barrutiabengoa, Agustín García-Serrador, Camilo Ulloa: Quantifying the economic impact of 
+extreme climate events: evidence from the Valencia floods. 
+25/12 Crista Pérez, Marco Lara: Desigualdades laborales entre hombres y mujeres en México. 
+25/11 Joxe Mari Barrutiabengoa Ortubai, Rafael Ortiz Durán: Measuring the impact of installed renewable 
+capacity on employment. 
+25/10 Angel de la Fuente: La liquidación de 2023 del sistema de financiación de las comunidades autónomas de 
+régimen común. 
+25/09 Alfonso Ugarte-Ruiz: Locproj & Lpgraph: Stata commands to estimate Local Projections. 
+25/08 Gergely Buda, Vasco M. Carvalho, Giancarlo Corsetti, João B. Duarte, Stephen Hansen, Afonso S. 
+Moura, Álvaro Ortiz, Tomasa Rodrigo, José V. Rodríguez Mora, Guilherme Alves da Silva: The Short Lags 
+of Monetary Policy. 
+25/07 Ángel de la Fuente, Pep Ruiz: Series largas de VAB y empleo regional por sectores, 1955-2023. 
+
+ 
+Panel Local Projections without Fixed-Effects: A Cumulative-Difference OLS Estimator- June 29, 2026 p.70 
+ 
+Actualización de RegData-Sect hasta 2023. 
+25/06 Agustín García, David Sarasa-Flores, Camilo Ulloa: Buy Guns or Buy Roses?: EU Defence Spending 
+Fiscal Multipliers. 
+25/05 Angel de la Fuente: Las finanzas autonómicas en 2024 y entre 2003 y 2024. 
+25/04 Joxe Mari Barrutiabengoa Ortubai, Rodrigo Enrique Falbo Piacentini, Agustín García Serrador, Juan 
+F. Rubio-Ramírez: Unraveling the impact of a carbon price shock on macroeconomic variables: a Narrative Sign 
+Restrictions approach. 
+25/03 Alvaro Ortiz, Tomasa Rodrigo, David Sarasa, Pedro Torinos, Sirenia Vazquez: What can 240,000 new 
+credit transactions tell us about the impact of NGEU funds?. 
+25/02 Gergely Buda, Vasco M. Carvalho, Giancarlo Corsetti, João B. Duarte, Stephen Hansen, Afonso S. 
+Moura, Álvaro Ortiz, Tomasa Rodrigo, José V. Rodríguez Mora, Guilherme Alves da Silva: The Short Lags 
+of Monetary Policy. 
+25/01 Ángel de la Fuente: Series largas de algunos agregados económicos y demográficos regionales: 
+actualización de RegData hasta 2023. 
+ 
+ 
+ 
+ 
+CLICK HERE TO ACCESS THE WORKING DOCUMENTS PUBLISHED IN 
+Spanish and English 
+ 
+ 
+ 
+
+ 
+Panel Local Projections without Fixed-Effects: A Cumulative-Difference OLS Estimator- June 29, 2026 p.71 
+ 
+DISCLAIMER 
+The present document does not constitute an “Investment Recommendation”, as defined in Regulation (EU) No 596/2014 of 
+the European Parliament and of the Council of 16 April 2014 on market abuse (“MAR”). In particular, this document does not 
+constitute “Investment Research” nor “Marketing Material”, for the purposes of article 36 of the Regulation (EU) 2017/565 of 25 
+April 2016 supplementing Directive 2014/65/EU of the European Parliament and of the Council as regards organisational 
+requirements and operating conditions for investment firms and defined terms for the purposes of that Directive (MIFID II). 
+Readers should be aware that under no circumstances should they base their investment decisions on the information 
+contained in this document. Those persons or entities offering investment products to these potential investors are legally 
+required to provide the information needed for them to take an appropriate investment decision. 
+This document has been prepared by BBVA Research Department. It is provided for information purposes only and expresses 
+data or opinions regarding the date of issue of the report, prepared by BBVA or obtained from or based on sources we 
+consider to be reliable, and have not been independently verified by BBVA. Therefore, BBVA offers no warranty, either 
+express or implicit, regarding its accuracy, integrity or correctness. 
+This document and its contents are subject to changes without prior notice depending on variables such as the economic 
+context or market fluctuations. BBVA is not responsible for updating these contents or for giving notice of such changes. 
+BBVA accepts no liability for any loss, direct or indirect, that may result from the use of this document or its contents. 
+This document and its contents do not constitute an offer, invitation or solicitation to purchase, divest or enter into any interest 
+in financial assets or instruments. Neither shall this document nor its contents form the basis of any contract, commitment or 
+decision of any kind. 
+The content of this document is protected by intellectual property laws. Reproduction, transformation, distribution, public 
+communication, making available, extraction, reuse, forwarding or use of any nature by any means or process is prohibited, 
+except in cases where it is legally permitted or expressly authorised by BBVA on its website www.bbvaresearch.com. 
+ 
+ 

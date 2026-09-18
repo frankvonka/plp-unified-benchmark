@@ -1,0 +1,14 @@
+{
+ "cell": "hetbeta_N100_T50_rho0.8_xsd1",
+ "N": 100,
+ "T": 50,
+ "rho": 0.8,
+ "sig_lam": 1.0,
+ "sig_gam": 0.5,
+ "het_rho": false,
+ "het_beta": true,
+ "beta_true": -0.6,
+ "beta_mean": -0.6,
+ "niter": 100,
+ "secs": 136.7
+}

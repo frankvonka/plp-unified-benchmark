@@ -1,0 +1,93 @@
+{
+ "verdict": "PASS",
+ "when": "2026-09-18 13:11 UTC",
+ "fails": [],
+ "warns": [
+  {
+   "check": "git",
+   "msg": "uncommitted files: 2"
+  }
+ ],
+ "all": [
+  [
+   "PASS",
+   "structure",
+   "code/ present"
+  ],
+  [
+   "PASS",
+   "structure",
+   "results/ present"
+  ],
+  [
+   "PASS",
+   "structure",
+   "figures/ present"
+  ],
+  [
+   "PASS",
+   "structure",
+   "tables/ present"
+  ],
+  [
+   "PASS",
+   "docs",
+   "README.md present"
+  ],
+  [
+   "PASS",
+   "docs",
+   "ALL_RESULTS.md at results/ALL_RESULTS.md"
+  ],
+  [
+   "PASS",
+   "figures",
+   "12 PNGs checked, 0 near-empty"
+  ],
+  [
+   "PASS",
+   "tables",
+   "12 tables; all readable, >=3 rows"
+  ],
+  [
+   "PASS",
+   "results",
+   "291 CSVs scanned; all parseable"
+  ],
+  [
+   "PASS",
+   "placeholders",
+   "0 hits"
+  ],
+  [
+   "PASS",
+   "seeds",
+   "42/7/123 all referenced in code"
+  ],
+  [
+   "PASS",
+   "reproducibility",
+   "evidence: README.md (mention)"
+  ],
+  [
+   "WARN",
+   "git",
+   "uncommitted files: 2"
+  ],
+  [
+   "PASS",
+   "git",
+   "pushed"
+  ],
+  [
+   "PASS",
+   "git",
+   "tags: v0.1-s6"
+  ],
+  [
+   "PASS",
+   "stage-coverage",
+   "checkpoint dirs: 9 (s1, s10, s3, s4, s5, s6...)"
+  ]
+ ]
+}

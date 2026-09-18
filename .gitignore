@@ -1,0 +1,14 @@
+raw/
+*.pyc
+__pycache__/
+.venv/
+*.npy
+*.pkl
+*.zip
+# per-cell trial dumps (large) stay on disk; commit the aggregated summaries only
+results/04_monte_carlo/*_trials.csv
+results/09_xsd_inference/*_trials.csv
+results/06_robustness/
+results/08_validation/our_rerun*.csv
+*.pyc
+__pycache__/

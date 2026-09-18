@@ -1,0 +1,9 @@
+{
+ "n_countries": 192,
+ "years": "1985-2001",
+ "gpr_source": "Caldara-Iacoviello official GPR (annualized monthly, 1985-2026 file)",
+ "gpr_nonzero": 3264,
+ "exposure_def": "pre-1985 mean cf1GRRT_WB, z-scored (spec log: proxy for structural openness to global shocks)",
+ "crisis_hist_def": "pre-1985 mean CRISIS (financial crisis years 1965-84)",
+ "note": "Level spec collinear with time FE in TWFE; interactions are the identified specs"
+}

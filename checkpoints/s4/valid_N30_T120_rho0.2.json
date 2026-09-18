@@ -1,0 +1,14 @@
+{
+ "cell": "valid_N30_T120_rho0.2",
+ "N": 30,
+ "T": 120,
+ "rho": 0.2,
+ "sig_lam": 0.0,
+ "sig_gam": 0.0,
+ "het_rho": false,
+ "het_beta": false,
+ "beta_true": -0.6,
+ "beta_mean": -0.6,
+ "niter": 150,
+ "secs": 151.3
+}

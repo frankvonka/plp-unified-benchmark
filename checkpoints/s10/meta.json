@@ -1,0 +1,7 @@
+{
+ "lambda_cov": 2.0,
+ "lambda_sign": 0.5,
+ "eps": 0.0,
+ "surrogate_winner": "ridge_a1",
+ "note": "LP over simplex is attained at a vertex; high-solve LP should concentrate on the argmin (agreement column)"
+}

@@ -1,0 +1,14 @@
+{
+ "cell": "main_N20_T50_rho0.5_xsd1",
+ "N": 20,
+ "T": 50,
+ "rho": 0.5,
+ "sig_lam": 1.0,
+ "sig_gam": 0.5,
+ "het_rho": false,
+ "het_beta": false,
+ "beta_true": -0.6,
+ "beta_mean": -0.6,
+ "niter": 100,
+ "secs": 160.8
+}

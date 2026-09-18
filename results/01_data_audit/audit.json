@@ -1,0 +1,149 @@
+{
+ "RR": {
+  "file": "empirical_RR_f4_lngdp_1980.csv",
+  "label": "Romer & Romer (2017), GDP",
+  "n_rows": 1728,
+  "n_units": 24,
+  "n_periods_raw": 72,
+  "period_range": [
+   41,
+   112
+  ],
+  "n_missing_cells": 1800,
+  "balanced": true,
+  "median_T": 72,
+  "min_T": 72,
+  "max_T": 72,
+  "shock_cols": [
+   "CRISIS"
+  ],
+  "n_controls": 8,
+  "n_outcomes": 11,
+  "te": true,
+  "twoc": false,
+  "robust": false,
+  "eigen": false,
+  "y_scale": 1.0,
+  "missing_columns": [],
+  "dup_keys": 0,
+  "shock_share": 0.6551
+ },
+ "RR_UNEMP": {
+  "file": "empirical_RR_f4_lnunemp_1980.csv",
+  "label": "Romer & Romer (2017), Unemployment",
+  "n_rows": 1728,
+  "n_units": 24,
+  "n_periods_raw": 72,
+  "period_range": [
+   41,
+   112
+  ],
+  "n_missing_cells": 4579,
+  "balanced": true,
+  "median_T": 72,
+  "min_T": 72,
+  "max_T": 72,
+  "shock_cols": [
+   "CRISIS"
+  ],
+  "n_controls": 8,
+  "n_outcomes": 11,
+  "te": true,
+  "twoc": false,
+  "robust": false,
+  "eigen": false,
+  "y_scale": 1.0,
+  "missing_columns": [],
+  "dup_keys": 0,
+  "shock_share": 0.6551
+ },
+ "BVX": {
+  "file": "empirical_BVX_t1_y.csv",
+  "label": "Baron, Verner & Xiong (2021), dY",
+  "n_rows": 3317,
+  "n_units": 45,
+  "n_periods_raw": 126,
+  "period_range": [
+   1870,
+   2013
+  ],
+  "n_missing_cells": 4114,
+  "balanced": false,
+  "median_T": 71,
+  "min_T": 14,
+  "max_T": 126,
+  "shock_cols": [
+   "R_B",
+   "R_N"
+  ],
+  "n_controls": 14,
+  "n_outcomes": 6,
+  "te": false,
+  "twoc": true,
+  "robust": true,
+  "eigen": true,
+  "y_scale": 100.0,
+  "missing_columns": [],
+  "dup_keys": 0,
+  "shock_share": 0.0672
+ },
+ "MSV": {
+  "file": "empirical_MSV_f2.csv",
+  "label": "Mian, Sufi & Verner (2017), household debt",
+  "n_rows": 911,
+  "n_units": 30,
+  "n_periods_raw": 51,
+  "period_range": [
+   1962,
+   2012
+  ],
+  "n_missing_cells": 2313,
+  "balanced": false,
+  "median_T": 30,
+  "min_T": 11,
+  "max_T": 51,
+  "shock_cols": [
+   "L0HHD_L1GDP",
+   "L0NFD_L1GDP"
+  ],
+  "n_controls": 13,
+  "n_outcomes": 10,
+  "te": false,
+  "twoc": true,
+  "robust": false,
+  "eigen": false,
+  "y_scale": 1.0,
+  "missing_columns": [],
+  "dup_keys": 0,
+  "shock_share": 50.1131
+ },
+ "CS": {
+  "file": "empirical_CS_f3.csv",
+  "label": "Cerra & Saxena (2008), crises",
+  "n_rows": 8064,
+  "n_units": 192,
+  "n_periods_raw": 42,
+  "period_range": [
+   1960,
+   2001
+  ],
+  "n_missing_cells": 56033,
+  "balanced": true,
+  "median_T": 42,
+  "min_T": 42,
+  "max_T": 42,
+  "shock_cols": [
+   "CRISIS"
+  ],
+  "n_controls": 8,
+  "n_outcomes": 10,
+  "te": false,
+  "twoc": false,
+  "robust": false,
+  "eigen": false,
+  "y_scale": 1.0,
+  "missing_columns": [],
+  "dup_keys": 0,
+  "shock_share": 0.1726
+ }
+}
